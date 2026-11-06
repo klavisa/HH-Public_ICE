@@ -1,0 +1,1329 @@
+<title>Atrodi savu dīķi</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Hokeja nodarbības jebkuram līmenim. Atrodi brīvu vietu laukumā, piesakies un saņem rīkotāja apstiprinājumu.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%232dd9e8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='%23070812'/%3E%3Cellipse cx='16' cy='19' rx='10' ry='4' fill='url(%23g)'/%3E%3Cellipse cx='16' cy='15' rx='10' ry='4' fill='%230d0f1f' stroke='url(%23g)' stroke-width='1.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Open+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: dark "night rink" — PrimeIT ink-navy base, ice-line blueprint visuals, violet→cyan signal gradient for actions. Single dark theme by choice (as primeit.lv). */
+:root{
+  color-scheme: dark;
+  --ink:#070812;          /* dominant surface */
+  --ink-2:#0d0f1f;        /* raised surface */
+  --ink-3:#151833;        /* inputs, hover */
+  --line:rgba(148,163,216,.16);
+  --line-strong:rgba(148,163,216,.32);
+  --text:#eef0fa;
+  --dim:#a3aac6;
+  --violet:#7c5cff;
+  --cyan:#2dd9e8;
+  --on-accent:#04121a;
+  --grad:linear-gradient(100deg,#7c5cff 0%,#2dd9e8 100%);
+  --ok:#3ddc97; --ok-bg:rgba(61,220,151,.12);
+  --warn:#e1b168; --warn-bg:rgba(225,177,104,.12);
+  --err:#ff6b7a; --err-bg:rgba(255,107,122,.12);
+  --info:#8f7bff; --info-bg:rgba(124,92,255,.16);
+  --f-head:"Space Grotesk","Open Sans",system-ui,sans-serif;
+  --f-body:"Open Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --s1:8px;--s2:16px;--s3:24px;--s4:40px;--s5:64px;--s6:96px;
+  --r:14px; --r-sm:10px;
+  --shadow:0 10px 30px -12px rgba(0,0,0,.6),0 0 0 1px var(--line);
+  --shadow-up:0 18px 40px -14px rgba(124,92,255,.45),0 0 0 1px var(--line-strong);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font:400 17px/1.5 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
+h1,h2,h3{font-family:var(--f-head);text-wrap:balance;margin:0;letter-spacing:-.02em}
+h1{font-size:clamp(36px,6.4vw,68px);line-height:1.04;font-weight:700}
+h2{font-size:clamp(28px,3.6vw,44px);line-height:1.1;font-weight:700}
+h3{font-size:20px;line-height:1.25;font-weight:600}
+p{margin:0}
+a{color:var(--cyan)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ink-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{font:600 12px/1 var(--f-body);letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+.lead{color:var(--dim);font-size:18px;max-width:58ch}
+.muted{color:var(--dim)}
+.num{font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.icon{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+
+/* Header */
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(7,8,18,.72);backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid transparent;transition:border-color .25s,background-color .25s}
+.site-head.compact{border-bottom-color:var(--line);background:rgba(7,8,18,.92)}
+.head-row{display:flex;align-items:center;gap:var(--s3);padding-block:18px;transition:padding .25s var(--ease)}
+.site-head.compact .head-row{padding-block:10px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text);min-width:0}
+.brand img{height:28px;width:auto}
+.brand span{font:600 13px/1.2 var(--f-head);color:var(--dim);border-left:1px solid var(--line-strong);padding-left:12px;white-space:nowrap}
+.nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.nav a{position:relative;color:var(--dim);text-decoration:none;font-weight:600;font-size:15px;padding:8px 12px;border-radius:999px}
+.nav a::after{content:"";position:absolute;left:12px;right:12px;bottom:4px;height:2px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .2s var(--ease)}
+.nav a:hover::after,.nav a[aria-current="page"]::after{transform:scaleX(1)}
+.nav a[aria-current="page"],.nav a:hover{color:var(--text)}
+.lang{display:flex;border:1px solid var(--line-strong);border-radius:999px;padding:3px}
+.lang button{all:unset;cursor:pointer;font:600 12px/1 var(--f-body);letter-spacing:.08em;padding:7px 10px;border-radius:999px;color:var(--dim)}
+.lang button[aria-pressed="true"]{background:var(--ink-3);color:var(--text)}
+.lang button:focus-visible{outline:2px solid var(--cyan)}
+@media (max-width:760px){
+  .head-row{flex-wrap:wrap;gap:12px}
+  .brand span{display:none}
+  .nav{order:3;width:100%;margin-left:0;justify-content:space-between}
+  .nav a{padding:8px 6px;font-size:14px}
+  .lang{margin-left:auto}
+}
+
+/* Buttons */
+.btn{--lift:0px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font:700 15px/1 var(--f-body);padding:15px 22px;border-radius:999px;border:0;cursor:pointer;text-decoration:none;transition:transform .18s var(--ease),box-shadow .18s var(--ease),background-color .18s;transform:translateY(var(--lift))}
+.btn:hover{--lift:-3px}
+.btn:active{transform:translateY(0) scale(.96)}
+.btn[disabled]{opacity:.5;cursor:not-allowed;--lift:0px}
+.btn-primary{background:var(--grad);color:var(--on-accent);box-shadow:0 8px 24px -10px rgba(45,217,232,.6)}
+.btn-primary:hover{box-shadow:0 14px 30px -10px rgba(124,92,255,.7)}
+.btn-secondary{background:transparent;color:var(--text);box-shadow:inset 0 0 0 1.5px var(--line-strong)}
+.btn-secondary:hover{box-shadow:inset 0 0 0 1.5px var(--cyan)}
+.btn-sm{padding:10px 14px;font-size:14px}
+.btn-ghost{background:transparent;color:var(--dim);padding:10px 12px}
+.btn-ghost:hover{color:var(--text)}
+.btn-ok{background:var(--ok-bg);color:var(--ok)}
+.btn-err{background:var(--err-bg);color:var(--err)}
+.btn .spin{width:16px;height:16px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;padding-block:var(--s5) var(--s6)}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 85% 30%,rgba(124,92,255,.22),transparent 60%),radial-gradient(40% 50% at 70% 85%,rgba(45,217,232,.16),transparent 60%);pointer-events:none}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:var(--s4);align-items:center}
+.hero-copy{display:grid;gap:var(--s3);min-width:0}
+.hero-visual{min-width:0}
+.hero-visual svg{width:100%;height:auto;display:block;animation:breathe 6s ease-in-out infinite;transform-origin:50% 55%}
+@keyframes breathe{50%{transform:scale(1.03)}}
+.hero-actions{display:flex;gap:var(--s2);flex-wrap:wrap;align-items:center}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.hero{padding-block:var(--s4) var(--s5)}.hero-visual{order:-1;max-width:520px}}
+.enter > *{animation:rise .45s var(--ease) both}
+.enter > *:nth-child(2){animation-delay:.08s}.enter > *:nth-child(3){animation-delay:.16s}.enter > *:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+
+/* Sections */
+.section{padding-block:var(--s5)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s4)}
+.section-head > div:first-child{display:grid;gap:12px;min-width:0}
+.band{background:var(--ink-2);border-block:1px solid var(--line)}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--s3)}
+.card{background:var(--ink-2);border-radius:var(--r);box-shadow:var(--shadow);padding:var(--s3);display:grid;gap:var(--s2);transition:transform .2s var(--ease),box-shadow .2s var(--ease);min-width:0}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-up)}
+.card.pop{animation:rise .4s var(--ease) both}
+.s-card{grid-template-columns:auto 1fr;align-items:start}
+.date-tile{width:72px;border-radius:var(--r-sm);background:var(--ink);box-shadow:inset 0 0 0 1px var(--line-strong);text-align:center;padding:10px 0 8px;display:grid;gap:2px}
+.date-tile b{font:700 28px/1 var(--f-head)}
+.date-tile small{font:600 11px/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
+.date-tile i{font-style:normal;font-size:12px;color:var(--dim)}
+.s-body{display:grid;gap:10px;min-width:0}
+.s-body h3{overflow-wrap:anywhere}
+.meta{display:flex;flex-wrap:wrap;gap:6px 16px;color:var(--dim);font-size:15px}
+.meta span{display:inline-flex;gap:6px;align-items:center}
+.meta .icon{width:17px;height:17px}
+.s-foot{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:var(--s2);flex-wrap:wrap;border-top:1px solid var(--line);padding-top:var(--s2)}
+.spots{display:grid;gap:6px;min-width:150px;flex:1}
+.bar{height:6px;border-radius:99px;background:var(--ink-3);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--grad);border-radius:inherit;transform-origin:left;transition:transform .5s var(--ease)}
+.desc{color:var(--dim);font-size:15px;overflow-wrap:anywhere}
+.chip{display:inline-flex;align-items:center;gap:6px;font:700 12px/1 var(--f-body);letter-spacing:.04em;padding:6px 10px;border-radius:999px;white-space:nowrap}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.chip-active,.chip-approved{background:var(--ok-bg);color:var(--ok)}
+.chip-signed{background:var(--info-bg);color:#b3a5ff}
+.chip-full,.chip-draft{background:var(--warn-bg);color:var(--warn)}
+.chip-rejected{background:var(--err-bg);color:var(--err)}
+.chip-past{background:var(--ink-3);color:var(--dim)}
+
+/* Toolbar & fields */
+.toolbar{display:flex;gap:var(--s2);flex-wrap:wrap;align-items:end}
+.toolbar .field{min-width:200px;flex:1}
+.field{display:grid;gap:6px;min-width:0}
+.field label{font:600 14px/1.3 var(--f-body);color:var(--text)}
+.field label .req{color:var(--cyan)}
+.field input,.field textarea,.field select{width:100%;font:400 16px/1.4 var(--f-body);color:var(--text);background:var(--ink-3);border:1.5px solid var(--line);border-radius:var(--r-sm);padding:12px 14px;transition:border-color .15s,box-shadow .15s}
+.field textarea{min-height:96px;resize:vertical}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 4px rgba(45,217,232,.15)}
+.field.invalid input,.field.invalid textarea,.field.invalid select{border-color:var(--err);box-shadow:0 0 0 4px rgba(255,107,122,.12)}
+.field .err{color:var(--err);font-size:14px;min-height:0}
+.field .hint{color:var(--dim);font-size:13px}
+.form{display:grid;gap:var(--s3)}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s2) var(--s3)}
+.form-grid .full{grid-column:1/-1}
+@media (max-width:640px){.form-grid{grid-template-columns:1fr}}
+.form-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.form-msg{font-size:15px;padding:12px 14px;border-radius:var(--r-sm)}
+.form-msg.error{background:var(--err-bg);color:var(--err)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.panel{background:var(--ink-2);border-radius:var(--r);box-shadow:var(--shadow);padding:var(--s4)}
+@media (max-width:640px){.panel{padding:var(--s3)}}
+
+/* Steps */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3);counter-reset:step}
+.step{display:grid;gap:12px;padding:var(--s3);border-radius:var(--r);border:1px solid var(--line);min-width:0}
+.step-n{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:700 18px/1 var(--f-head);color:var(--on-accent);background:var(--grad)}
+.step p{color:var(--dim)}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+
+/* Empty, skeleton, error */
+.state{display:grid;justify-items:center;text-align:center;gap:var(--s2);padding:var(--s4) var(--s3);border:1px dashed var(--line-strong);border-radius:var(--r);color:var(--dim)}
+.state svg.ill{width:160px;height:auto}
+.state h3{color:var(--text)}
+.skel{height:180px;border-radius:var(--r);background:linear-gradient(100deg,var(--ink-2) 30%,var(--ink-3) 50%,var(--ink-2) 70%);background-size:300% 100%;animation:shimmer 1.4s linear infinite}
+@keyframes shimmer{from{background-position:100% 0}to{background-position:0 0}}
+.banner{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-radius:var(--r-sm);background:var(--warn-bg);color:var(--warn);font-size:15px}
+
+/* My applications */
+.app-card{grid-template-columns:1fr auto;align-items:start}
+.app-card .s-body{gap:8px}
+.app-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.confirm{grid-column:1/-1;display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--err-bg);border-radius:var(--r-sm);padding:12px 14px;color:var(--text)}
+.history{font-size:13px;color:var(--dim);display:grid;gap:2px;padding-left:16px;margin:4px 0 0}
+details summary{cursor:pointer;color:var(--dim);font-size:14px}
+.addr{display:flex;gap:8px;align-items:center;font-weight:600}
+.addr.locked{color:var(--dim);font-weight:400}
+
+/* Modal */
+.modal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(4,5,12,.72);backdrop-filter:blur(4px)}
+.modal-box{width:min(560px,100%);max-height:100%;overflow:auto;background:var(--ink-2);border-radius:var(--r);box-shadow:var(--shadow-up);padding:var(--s4);display:grid;gap:var(--s3);animation:rise .3s var(--ease) both}
+@media (max-width:640px){.modal-box{padding:var(--s3)}}
+.modal-head{display:flex;justify-content:space-between;gap:var(--s2);align-items:start}
+.receipt{display:grid;gap:12px;padding:var(--s3);border-radius:var(--r-sm);background:var(--ink);box-shadow:inset 0 0 0 1px var(--line-strong)}
+.receipt .big{font:700 32px/1 var(--f-head);letter-spacing:.02em}
+.kv{display:flex;justify-content:space-between;gap:var(--s2);flex-wrap:wrap}
+
+/* Toast */
+.toasts{position:fixed;z-index:90;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));display:grid;gap:8px;max-width:min(380px,calc(100vw - 32px))}
+.toast{display:flex;gap:10px;align-items:center;padding:14px 16px;border-radius:var(--r-sm);background:var(--ink-3);box-shadow:var(--shadow-up);animation:rise .3s var(--ease) both;font-size:15px}
+.toast.ok .icon{color:var(--ok)} .toast.err .icon{color:var(--err)}
+
+/* Organiser & admin */
+.who{display:flex;justify-content:space-between;align-items:center;gap:var(--s2);flex-wrap:wrap;padding:12px 16px;border-radius:var(--r-sm);background:var(--ink-2);box-shadow:var(--shadow)}
+.who b{font-family:var(--f-head)}
+.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font:700 14px/1 var(--f-head);background:var(--grad);color:var(--on-accent);flex:none}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;min-width:0}
+.tpls{display:flex;gap:10px;flex-wrap:wrap}
+.tpl{display:inline-flex;align-items:center;gap:8px;padding:8px 8px 8px 14px;border-radius:999px;background:var(--ink-3);box-shadow:inset 0 0 0 1px var(--line);font-size:14px;max-width:100%}
+.tpl b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.icon-btn{all:unset;cursor:pointer;width:30px;height:30px;display:grid;place-items:center;border-radius:50%;color:var(--dim)}
+.icon-btn:hover{background:var(--err-bg);color:var(--err)}
+.icon-btn:focus-visible{outline:2px solid var(--cyan)}
+.tabs{display:flex;gap:4px;padding:4px;border-radius:999px;border:1px solid var(--line-strong);width:max-content;max-width:100%;flex-wrap:wrap}
+.tabs button{all:unset;cursor:pointer;padding:9px 16px;border-radius:999px;font-weight:600;font-size:14px;color:var(--dim)}
+.tabs button[aria-selected="true"]{background:var(--ink-3);color:var(--text)}
+.tabs button:focus-visible{outline:2px solid var(--cyan)}
+.stats{display:flex;gap:var(--s3);flex-wrap:wrap}
+.stat{display:grid;gap:4px}
+.stat b{font:700 32px/1 var(--f-head)}
+.stat span{font-size:13px;color:var(--dim)}
+.o-card{cursor:pointer}
+.o-card[aria-pressed="true"]{box-shadow:0 0 0 2px var(--cyan),var(--shadow-up)}
+.detail{display:grid;gap:var(--s3);margin-top:var(--s4)}
+.kanban{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s2)}
+@media (max-width:900px){.kanban{grid-template-columns:1fr}}
+.col{background:var(--ink);border-radius:var(--r);border:1.5px dashed transparent;padding:var(--s2);display:grid;gap:12px;align-content:start;min-height:160px;transition:border-color .15s,background-color .15s}
+.col.drop{border-color:var(--cyan);background:rgba(45,217,232,.06)}
+.col-head{display:flex;justify-content:space-between;align-items:center}
+.k-card{background:var(--ink-2);border-radius:var(--r-sm);box-shadow:var(--shadow);padding:14px;display:grid;gap:8px;cursor:grab;transition:opacity .15s,transform .15s}
+.k-card.dragging{opacity:.45;transform:rotate(1deg)}
+.k-card .contacts{font-size:14px;color:var(--dim);overflow-wrap:anywhere}
+.k-actions{display:flex;gap:6px;flex-wrap:wrap}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{font:600 12px/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);text-align:left;padding:12px;border-bottom:1px solid var(--line-strong)}
+td{padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+@media (max-width:700px){
+  table,thead,tbody,tr,td{display:block} thead{display:none}
+  tr{background:var(--ink-2);border-radius:var(--r);box-shadow:var(--shadow);padding:8px 16px;margin-bottom:12px}
+  td{border:0;padding:6px 0;display:flex;justify-content:space-between;gap:12px;text-align:right}
+  td::before{content:attr(data-label);color:var(--dim);font-size:13px;text-align:left}
+}
+.login{max-width:480px}
+
+/* Final CTA & footer */
+.cta{position:relative;overflow:hidden;text-align:center;display:grid;justify-items:center;gap:var(--s3);padding:var(--s5) var(--s3);border-radius:calc(var(--r)*1.5);background:radial-gradient(80% 120% at 50% 0%,rgba(124,92,255,.28),transparent 70%),var(--ink-2);box-shadow:var(--shadow)}
+.site-foot{border-top:1px solid var(--line);padding-block:var(--s4) calc(var(--s4) + env(safe-area-inset-bottom,0px));margin-top:var(--s5)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:var(--s4)}
+.foot-grid > div{display:grid;gap:12px;align-content:start;min-width:0}
+.foot-grid a{color:var(--dim);text-decoration:none;width:max-content;max-width:100%}
+.foot-grid a:hover{color:var(--text)}
+.foot-grid img{height:30px;width:auto}
+.copy{color:var(--dim);font-size:13px;margin-top:var(--s4)}
+@media (max-width:760px){.foot-grid{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+
+<!-- Icon set: one stroke family, 24px grid -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-rink" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="6"/><path d="M12 5v14"/><circle cx="12" cy="12" r="2.5"/></symbol>
+  <symbol id="i-team" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></symbol>
+  <symbol id="i-euro" viewBox="0 0 24 24"><path d="M18 6.5A7 7 0 1 0 18 17.5"/><path d="M4 10h9M4 14h9"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 17l5-5-5-5M15 12H4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></symbol>
+  <symbol id="i-puck" viewBox="0 0 24 24"><ellipse cx="12" cy="9" rx="8" ry="3.5"/><path d="M4 9v5c0 1.9 3.6 3.5 8 3.5s8-1.6 8-3.5V9"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16v4z"/></symbol>
+</svg>
+
+<header class="site-head" id="head">
+  <div class="wrap head-row">
+    <a class="brand" href="#nodarbibas" aria-label="Atrodi savu dīķi">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI4AAAAoCAQAAACCsQpwAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfnBxgPBgcjelfiAAAETElEQVRo3u2Yb2iVVRzHP3O6FsoqbaNUls4tKg1nQYxCnzOa1STCMIoowWEzEKF8U0TlOQ8S9Ca1lLCIzKReZWZhgZD3PL1xpGLFUtp0W8ut2rA7UTO3u51e7Ozu3qv32XX33yPcz/PiPOd3zvmdc77P+fccKJCUonw3YHLIJrUuU77USvfvq6dMzXc3J8kc6jLm64ZkCVPy3csgUxDHh4I4PhTE8aEgjg8FcXzI2lYuHe7nJ/dQvjuYDhOII+9iRkzUcEF3eEMTuw09J/ZQhBHr63fmohthegCYzUygl3988s5nemYqNS0mkUvmW7l0wnJf29xedsSQb8Q36hODwWA+NMYY02xjV39+SOiQrExWy7WvOaU0Kh16ZYJcJ214Ijvi5IZUxWmnjTY6GZ1SU8TbcrlfdrGZnRznI/FavjuYRcamlbQrj3OL2W1Ho85nu/ynVcQM2aff2hujliEzkvK0usbdyguLdbqRcuBBp9T7D+RT1ADn3Ped29RqUaP71G6v3blTrALQ33itAPJhHgAG3Xecm9WLYhkz6FV79RceIGvVGhYBJ9Wn7pH4+pxb1dNiKbdzmS71vd6XymYAxVd0rygb23LiyAEwh6ytGsDsN8YY0yXvNn3W/izIlfZ9tS2zxRhjzHmn0nTEfLRdEGo2g9F4JLQ2tvbQy+Z83Edul4tTGTnjhK19hUlOJhdkuNGGg7E29THl9v140pIleh/zY+JrjBQ7mDb+ycW7zqyoNK7YGneQgGp10JmT+SGQMXFkJbUAnNN/xJgrqGOEXzlCr/4tuTjcx2G1XjVz2FoUU9mjmvRGegGYLlbYeurE6wD8qZ9XC1Stfm+0Hp3DJT7FqSgWcgmYJhaKNykFYL9n4rKc1Y/VH53QkScavAjovbp31I9+q34TuMhO9RWAqHJHVXuVYmBEPeEeBXBfMjU0Ak+yIWjitIh4Q1htijfozSlIg9rhRQC8MGeoBiJqq01qtTWVATjFNADwoxv1qg6oRmC2rHD7AiVOAt16lft7gjjfpVRy/FAYAaDHC8fF7a22WGBXmyrTEi0xKxoGTJwuRifRRU7rA+pz72JCutGnU/KTWO7fJPlm2rCCitwIkYY46l73gm+GQW94UvWbJPax88wvJJx8GNZnAiZOzum24amiF/LXiIBedrn9dADQMH7ucYrNdnlPLlsRUHFAfwZAmf5SVgHIcr2LDepYSDpp+d3Gcp4hhY2V4E4r1BbdxFxgmWpX3YwwlxKgVCxJ54roAzYCcJBT0c0vOYEdOd6Afpy/bBvnUUUJAK2iOR2vYwfzAY6lkDuw4kD9z2Ix2zkbNQywTTzk9afjsyz6lscTQuZwiuUi+Yh8VC5xxn9Qr/grT5VOc4fBYNZm4z4n93jDXuvYr0X6zKONE9wUdzWQnMCLk2lK7KVCKgR4zck/BXF8KIjjQ0EcHwri+HC97lY9tKTvxHI53525Lvkf2BeWx+QlsZsAAAA7dEVYdENvbW1lbnQAeHI6ZDpEQUZwanFsNlNjczo0LGo6NDE2MTcyMzU5MjE0NzE5MzU2OSx0OjIzMDcyNDE0hBzFLAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0wNy0yNFQxNTowNjowNyswMDowMDdOgBUAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMDctMjRUMTU6MDY6MDcrMDA6MDBGEzipAAAAAElFTkSuQmCC" alt="Prime IT" width="100" height="28">
+      <span data-i18n="brand">Atrodi savu dīķi</span>
+    </a>
+    <nav class="nav" aria-label="Galvenā navigācija">
+      <a href="#nodarbibas" data-route="nodarbibas" data-i18n="nav.sessions">Nodarbības</a>
+      <a href="#rikotajs" data-route="rikotajs" data-i18n="nav.org">Rīkotājiem</a>
+      <a href="#administracija" data-route="administracija" data-i18n="nav.admin">Administrācija</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Valoda / Language / Язык">
+      <button type="button" data-lang="lv" aria-pressed="true">LV</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<div class="wrap" id="store-banner-wrap" hidden><div class="banner" style="margin-top:16px"><svg class="icon"><use href="#i-info"/></svg><span data-i18n="store.local">Šajā skatā kopīgā datubāze nav pieejama. Dati glabājas tikai šajā pārlūkā.</span></div></div>
+
+<!-- ============ PLAYER PORTAL ============ -->
+<section id="view-nodarbibas" data-view>
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy enter">
+        <p class="eyebrow" data-i18n="p.eyebrow">Hokeja nodarbības jebkuram līmenim</p>
+        <h1><span data-i18n="p.h1a">Atrodi savu</span> <span class="ink-text" data-i18n="p.h1b">dīķi</span></h1>
+        <p class="lead" data-i18n="p.lead">Izvēlies laiku un laukumu, piesakies ar savu vārdu un gaidi rīkotāja apstiprinājumu.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" type="button" data-scroll="#saraksts"><span data-i18n="p.cta">Izvēlēties nodarbību</span><svg class="icon"><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="false">
+        <svg viewBox="0 0 600 420" role="img" aria-labelledby="hero-alt">
+          <title id="hero-alt" data-i18n="p.heroAlt">Hokeja laukuma rasējums no augšas ar ripu un nūju</title>
+          <defs>
+            <linearGradient id="hg" x1="0" x2="1"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#2dd9e8"/></linearGradient>
+            <radialGradient id="ice" cx=".5" cy=".5" r=".6"><stop offset="0" stop-color="#151a3a"/><stop offset="1" stop-color="#0b0d1d"/></radialGradient>
+            <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#2dd9e8" stroke-opacity=".07"/></pattern>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+          </defs>
+          <rect x="0" y="0" width="600" height="420" fill="url(#grid)"/>
+          <!-- rink -->
+          <rect x="40" y="70" width="520" height="260" rx="78" fill="url(#ice)" stroke="url(#hg)" stroke-width="2.5"/>
+          <g fill="none" stroke="#2dd9e8" stroke-opacity=".55" stroke-width="1.5">
+            <line x1="300" y1="70" x2="300" y2="330" stroke="#7c5cff" stroke-opacity=".9" stroke-width="3"/>
+            <line x1="214" y1="70" x2="214" y2="330" stroke-width="3"/>
+            <line x1="386" y1="70" x2="386" y2="330" stroke-width="3"/>
+            <line x1="76" y1="78" x2="76" y2="322" stroke-opacity=".4"/>
+            <line x1="524" y1="78" x2="524" y2="322" stroke-opacity=".4"/>
+            <circle cx="300" cy="200" r="38"/>
+            <circle cx="140" cy="140" r="30"/><circle cx="140" cy="260" r="30"/>
+            <circle cx="460" cy="140" r="30"/><circle cx="460" cy="260" r="30"/>
+            <path d="M76 186a14 14 0 0 1 0 28M524 186a14 14 0 0 0 0 28" stroke="#7c5cff" stroke-opacity=".9"/>
+          </g>
+          <g fill="#2dd9e8" fill-opacity=".8">
+            <circle cx="300" cy="200" r="3"/><circle cx="140" cy="140" r="3"/><circle cx="140" cy="260" r="3"/><circle cx="460" cy="140" r="3"/><circle cx="460" cy="260" r="3"/>
+            <circle cx="250" cy="140" r="2.5"/><circle cx="250" cy="260" r="2.5"/><circle cx="350" cy="140" r="2.5"/><circle cx="350" cy="260" r="2.5"/>
+          </g>
+          <!-- measurement marks -->
+          <g stroke="#a3aac6" stroke-opacity=".5" stroke-width="1">
+            <line x1="40" y1="44" x2="560" y2="44"/><line x1="40" y1="38" x2="40" y2="50"/><line x1="560" y1="38" x2="560" y2="50"/><line x1="300" y1="40" x2="300" y2="48"/>
+            <line x1="584" y1="70" x2="584" y2="330"/><line x1="578" y1="70" x2="590" y2="70"/><line x1="578" y1="330" x2="590" y2="330"/>
+          </g>
+          <!-- stick -->
+          <g transform="translate(330 250) rotate(-28)">
+            <rect x="0" y="-6" width="210" height="12" rx="6" fill="#151833" stroke="url(#hg)" stroke-width="2"/>
+            <path d="M-6 -6 h20 v12 h-44 a18 18 0 0 1 -18 -18 v-4 h10 a10 10 0 0 0 10 10z" fill="#151833" stroke="url(#hg)" stroke-width="2"/>
+            <rect x="150" y="-6" width="40" height="12" fill="#7c5cff" fill-opacity=".35"/>
+          </g>
+          <!-- puck -->
+          <ellipse cx="248" cy="276" rx="34" ry="10" fill="#2dd9e8" fill-opacity=".35" filter="url(#glow)"/>
+          <g>
+            <ellipse cx="248" cy="270" rx="30" ry="11" fill="#04050c"/>
+            <rect x="218" y="258" width="60" height="12" fill="#04050c"/>
+            <ellipse cx="248" cy="258" rx="30" ry="11" fill="#151833" stroke="url(#hg)" stroke-width="2"/>
+          </g>
+          <path d="M150 300 C 190 300, 205 285, 218 272" fill="none" stroke="url(#hg)" stroke-width="2" stroke-dasharray="3 7" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <section class="section" id="saraksts" aria-labelledby="list-h">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow" data-i18n="p.listEyebrow">Publiskotās nodarbības</p>
+          <h2 id="list-h" data-i18n="p.listH">Izvēlies laiku un laukumu</h2>
+        </div>
+        <p class="muted num" id="list-count" aria-live="polite"></p>
+      </div>
+      <div class="toolbar" style="margin-bottom:var(--s3)">
+        <div class="field">
+          <label for="f-q" data-i18n="p.search">Meklēt pēc komandas, halles vai nosaukuma</label>
+          <input id="f-q" type="search" autocomplete="off" data-i18n-ph="p.searchPh" placeholder="Piemēram, halles nosaukums">
+        </div>
+        <div class="field" style="max-width:220px">
+          <label for="f-date" data-i18n="p.date">Datums</label>
+          <input id="f-date" type="date">
+        </div>
+        <button class="btn btn-ghost btn-sm" type="button" id="f-clear" data-i18n="p.clear">Notīrīt filtrus</button>
+      </div>
+      <div id="session-list" class="grid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="section band" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="section-head"><div><p class="eyebrow" data-i18n="p.howEyebrow">Kā tas notiek</p><h2 id="how-h" data-i18n="p.howH">Trīs soļi līdz ledum</h2></div></div>
+      <ol class="steps" style="list-style:none;padding:0;margin:0">
+        <li class="step reveal"><span class="step-n">1</span><h3 data-i18n="p.s1h">Izvēlies nodarbību</h3><p data-i18n="p.s1p">Sarakstā redzams datums, laiks, halle un brīvo vietu skaits.</p></li>
+        <li class="step reveal"><span class="step-n">2</span><h3 data-i18n="p.s2h">Piesakies ar vārdu</h3><p data-i18n="p.s2p">Obligāts ir tikai vārds. E-pastu un tālruni vari norādīt pēc izvēles.</p></li>
+        <li class="step reveal"><span class="step-n">3</span><h3 data-i18n="p.s3h">Saņem apstiprinājumu</h3><p data-i18n="p.s3p">Rīkotājs apstiprina dalību. Statusu un adresi redzi sadaļā "Mani pieteikumi".</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="mani" aria-labelledby="mine-h">
+    <div class="wrap">
+      <div class="section-head"><div><p class="eyebrow" data-i18n="p.mineEyebrow">Tikai šajā pārlūkā</p><h2 id="mine-h" data-i18n="p.mineH">Mani pieteikumi</h2></div></div>
+      <div id="my-list" class="grid" style="grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr))"></div>
+      <details style="margin-top:var(--s3)">
+        <summary data-i18n="p.findSummary">Pieteicies citā ierīcē? Atrodi pieteikumu pēc numura un koda</summary>
+        <form id="find-form" class="toolbar" style="margin-top:var(--s2)" novalidate>
+          <div class="field" style="max-width:200px"><label for="find-no" data-i18n="p.findNo">Pieteikuma numurs</label><input id="find-no" placeholder="P-0001" autocomplete="off" autocapitalize="characters"></div>
+          <div class="field" style="max-width:200px"><label for="find-code" data-i18n="p.findCode">Kods</label><input id="find-code" autocomplete="off" autocapitalize="characters"></div>
+          <button class="btn btn-secondary btn-sm" type="submit" data-i18n="p.findBtn">Atrast pieteikumu</button>
+          <p class="err muted" id="find-msg" role="status" style="width:100%"></p>
+        </form>
+      </details>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="cta reveal">
+        <h2 data-i18n="p.ctaH">Ledus ir gatavs. Tava vieta arī.</h2>
+        <p class="lead" data-i18n="p.ctaP">Nodarbības publicē dažādi rīkotāji. Atrodi sev piemērotāko.</p>
+        <button class="btn btn-primary" type="button" data-scroll="#saraksts"><span data-i18n="p.cta">Izvēlēties nodarbību</span><svg class="icon"><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ============ ORGANISER PANEL ============ -->
+<section id="view-rikotajs" data-view hidden>
+  <div class="section" id="org-login-wrap">
+    <div class="wrap">
+      <div class="panel login enter" style="margin-inline:auto">
+        <form id="org-login" class="form" novalidate>
+          <div style="display:grid;gap:8px"><p class="eyebrow" data-i18n="o.loginEyebrow">Nodarbību rīkotājiem</p><h1 style="font-size:clamp(30px,4vw,40px)" data-i18n="o.loginH">Ienāc rīkotāja panelī</h1><p class="muted" data-i18n="o.loginP">Profilu tev izveido administrators. Ienāc ar viņa izsniegto e-pastu un paroli.</p></div>
+          <div class="field"><label for="ol-email"><span data-i18n="f.email">E-pasts</span> <span class="req">*</span></label><input id="ol-email" type="email" inputmode="email" autocomplete="username" required><p class="err" aria-live="polite"></p></div>
+          <div class="field"><label for="ol-pass"><span data-i18n="f.password">Parole</span> <span class="req">*</span></label><input id="ol-pass" type="password" autocomplete="current-password" required><p class="err" aria-live="polite"></p></div>
+          <p class="form-msg error" hidden></p>
+          <div class="form-actions"><button class="btn btn-primary" type="submit" data-i18n="o.loginBtn">Ienākt panelī</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="org-app" hidden>
+    <div class="wrap" style="padding-top:var(--s3)">
+      <div class="who"><div class="row"><span class="avatar" id="org-avatar"></span><div><b id="org-name"></b><div class="muted" style="font-size:14px" id="org-team"></div></div></div><button class="btn btn-ghost btn-sm" type="button" data-logout><svg class="icon"><use href="#i-out"/></svg><span data-i18n="logout">Iziet</span></button></div>
+    </div>
+    <div class="hero" style="padding-block:var(--s5)">
+      <div class="wrap" style="position:relative;display:grid;gap:var(--s3)">
+        <div class="hero-copy enter" style="max-width:760px">
+          <p class="eyebrow" data-i18n="o.eyebrow">Rīkotāja panelis</p>
+          <h1 data-i18n="o.h1">Izveido savu komandas profilu</h1>
+          <p class="lead" data-i18n="o.lead">Saglabā nodarbības nosaukumu, vietu un halli vienreiz. Katru jaunu nodarbību izveidosi ar dažiem klikšķiem.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" type="button" id="tpl-open"><svg class="icon"><use href="#i-plus"/></svg><span data-i18n="o.createProfile">Izveidot profilu</span></button>
+            <button class="btn btn-secondary" type="button" id="ses-open"><svg class="icon"><use href="#i-puck"/></svg><span data-i18n="o.newSession">Jauna nodarbība</span></button>
+          </div>
+        </div>
+        <div class="panel" id="tpl-panel" hidden>
+          <form id="tpl-form" class="form" novalidate>
+            <h3 data-i18n="o.tplH">Komandas profils</h3>
+            <div class="form-grid">
+              <div class="field full"><label for="t-title"><span data-i18n="f.sTitle">Nodarbības nosaukums</span> <span class="req">*</span></label><input id="t-title" maxlength="80" required><p class="err" aria-live="polite"></p></div>
+              <div class="field"><label for="t-place"><span data-i18n="f.place">Vieta</span> <span class="req">*</span></label><input id="t-place" maxlength="120" required data-i18n-ph="f.placePh" placeholder="Adrese un pilsēta"><p class="hint" data-i18n="f.placeHint">Spēlētāji to redz tikai pēc pieteikšanās.</p><p class="err" aria-live="polite"></p></div>
+              <div class="field"><label for="t-hall"><span data-i18n="f.hall">Halle</span> <span class="req">*</span></label><input id="t-hall" maxlength="80" required><p class="err" aria-live="polite"></p></div>
+            </div>
+            <p class="form-msg error" hidden></p>
+            <div class="form-actions"><button class="btn btn-primary" type="submit" data-i18n="o.saveProfile">Saglabāt profilu</button><button class="btn btn-ghost" type="button" data-close="#tpl-panel" data-i18n="cancel">Atcelt</button></div>
+          </form>
+        </div>
+        <div style="display:grid;gap:12px">
+          <p class="eyebrow" data-i18n="o.tplList">Saglabātie profili</p>
+          <div class="tpls" id="tpl-list"></div>
+        </div>
+        <div class="panel" id="ses-panel" hidden>
+          <form id="ses-form" class="form" novalidate>
+            <h3 id="ses-form-h" data-i18n="o.sesH">Jauna nodarbība</h3>
+            <div class="form-grid">
+              <div class="field full"><label for="s-tpl" data-i18n="f.useProfile">Aizpildīt no profila</label><select id="s-tpl"></select></div>
+              <div class="field full"><label for="s-title"><span data-i18n="f.sTitle">Nodarbības nosaukums</span> <span class="req">*</span></label><input id="s-title" maxlength="80" required><p class="err" aria-live="polite"></p></div>
+              <div class="field"><label for="s-place"><span data-i18n="f.place">Vieta</span> <span class="req">*</span></label><input id="s-place" maxlength="120" required data-i18n-ph="f.placePh" placeholder="Adrese un pilsēta"><p class="err" aria-live="polite"></p></div>
+              <div class="field"><label for="s-hall"><span data-i18n="f.hall">Halle</span> <span class="req">*</span></label><input id="s-hall" maxlength="80" required><p class="err" aria-live="polite"></p></div>
+              <div class="field"><label for="s-date"><span data-i18n="p.date">Datums</span> <span class="req">*</span></label><input id="s-date" type="date" required><p class="err" aria-live="polite"></p></div>
+              <div class="field"><label for="s-time"><span data-i18n="f.time">Sākuma laiks</span> <span class="req">*</span></label><input id="s-time" type="time" step="300" required><p class="err" aria-live="polite"></p></div>
+              <div class="field"><label for="s-spots"><span data-i18n="f.spots">Brīvo vietu skaits</span> <span class="req">*</span></label><input id="s-spots" type="number" inputmode="numeric" min="1" max="60" step="1" required><p class="hint" data-i18n="f.spotsHint">No 1 līdz 60.</p><p class="err" aria-live="polite"></p></div>
+              <div class="field"><label for="s-price" data-i18n="f.price">Cena, EUR (informatīva)</label><input id="s-price" type="number" inputmode="decimal" min="0" step="0.5" placeholder="0"><p class="err" aria-live="polite"></p></div>
+              <div class="field full"><label for="s-desc" data-i18n="f.desc">Īss apraksts</label><textarea id="s-desc" maxlength="280" data-i18n-ph="f.descPh" placeholder="Līmenis, ekipējums, kas jāzina pirms ierašanās"></textarea><p class="hint num" id="s-desc-count">0 / 280</p></div>
+            </div>
+            <p class="form-msg error" hidden></p>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit" data-status="active" data-i18n="o.activate">Aktivizēt nodarbību</button>
+              <button class="btn btn-secondary" type="submit" data-status="draft" data-i18n="o.saveDraft">Saglabāt kā melnrakstu</button>
+              <button class="btn btn-ghost" type="button" data-close="#ses-panel" data-i18n="cancel">Atcelt</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <section class="section band" aria-labelledby="yours-h">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow" data-i18n="o.yoursEyebrow">Pārskats</p><h2 id="yours-h" data-i18n="o.yoursH">Tavas nodarbības</h2></div>
+          <div class="stats" id="org-stats"></div>
+        </div>
+        <div class="tabs" role="tablist" style="margin-bottom:var(--s3)">
+          <button type="button" role="tab" aria-selected="true" data-otab="upcoming" data-i18n="o.tabUp">Aktīvās un plānotās</button>
+          <button type="button" role="tab" aria-selected="false" data-otab="past" data-i18n="o.tabPast">Notikušās</button>
+        </div>
+        <div id="org-list" class="grid"></div>
+        <div id="org-detail" class="detail" hidden></div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<!-- ============ ADMIN PANEL ============ -->
+<section id="view-administracija" data-view hidden>
+  <div class="section" id="adm-gate">
+    <div class="wrap">
+      <div class="panel login enter" style="margin-inline:auto" id="adm-gate-box"></div>
+    </div>
+  </div>
+  <div id="adm-app" hidden>
+    <div class="wrap" style="padding-top:var(--s3)">
+      <div class="who"><div class="row"><span class="avatar" id="adm-avatar"></span><div><b id="adm-name"></b><div class="muted" style="font-size:14px" data-i18n="a.role">Sistēmas administrators</div></div></div><button class="btn btn-ghost btn-sm" type="button" data-logout><svg class="icon"><use href="#i-out"/></svg><span data-i18n="logout">Iziet</span></button></div>
+    </div>
+    <div class="hero" style="padding-block:var(--s5)">
+      <div class="wrap" style="position:relative;display:grid;gap:var(--s3)">
+        <div class="hero-copy enter" style="max-width:760px">
+          <p class="eyebrow" data-i18n="a.eyebrow">Administratora panelis</p>
+          <h1 data-i18n="a.h1">Izveido profilu nodarbību rīkotājam!</h1>
+          <p class="lead" data-i18n="a.lead">Rīkotājs ar šo e-pastu un paroli ienāk savā panelī un publicē nodarbības spēlētājiem.</p>
+          <div class="hero-actions"><button class="btn btn-primary" type="button" id="org-create-open"><svg class="icon"><use href="#i-plus"/></svg><span data-i18n="o.createProfile">Izveidot profilu</span></button></div>
+        </div>
+        <div class="panel" id="org-create-panel" hidden>
+          <form id="org-create" class="form" novalidate>
+            <h3 data-i18n="a.formH">Nodarbību rīkotāja profils</h3>
+            <div class="form-grid">
+              <div class="field"><label for="oc-name"><span data-i18n="f.orgName">Nodarbību rīkotāja vārds</span> <span class="req">*</span></label><input id="oc-name" autocomplete="off" maxlength="80" required><p class="err" aria-live="polite"></p></div>
+              <div class="field"><label for="oc-team"><span data-i18n="f.team">Komandas nosaukums</span> <span class="req">*</span></label><input id="oc-team" autocomplete="off" maxlength="80" required><p class="err" aria-live="polite"></p></div>
+              <div class="field"><label for="oc-email"><span data-i18n="f.email">E-pasts</span> <span class="req">*</span></label><input id="oc-email" type="email" inputmode="email" autocomplete="off" required><p class="err" aria-live="polite"></p></div>
+              <div class="field"><label for="oc-pass"><span data-i18n="f.password">Parole</span> <span class="req">*</span></label><input id="oc-pass" type="password" autocomplete="new-password" minlength="8" required><p class="hint" data-i18n="f.passHint">Vismaz 8 zīmes. Nodod to rīkotājam drošā veidā.</p><p class="err" aria-live="polite"></p></div>
+            </div>
+            <p class="form-msg error" hidden></p>
+            <div class="form-actions"><button class="btn btn-primary" type="submit" data-i18n="o.saveProfile">Saglabāt profilu</button><button class="btn btn-ghost" type="button" data-close="#org-create-panel" data-i18n="cancel">Atcelt</button></div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <section class="section band" aria-labelledby="orgs-h">
+      <div class="wrap">
+        <div class="section-head">
+          <div><p class="eyebrow" data-i18n="a.listEyebrow">Profili</p><h2 id="orgs-h" data-i18n="a.listH">Nodarbību rīkotāji</h2></div>
+          <div class="stats" id="adm-stats"></div>
+        </div>
+        <div class="toolbar" style="margin-bottom:var(--s3)"><div class="field" style="max-width:420px"><label for="adm-q" data-i18n="a.search">Meklēt pēc vārda, e-pasta vai komandas</label><input id="adm-q" type="search" autocomplete="off"></div></div>
+        <div id="adm-list"></div>
+      </div>
+    </section>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI4AAAAoCAQAAACCsQpwAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAJcEhZcwAADsQAAA7EAZUrDhsAAAAHdElNRQfnBxgPBgcjelfiAAAETElEQVRo3u2Yb2iVVRzHP3O6FsoqbaNUls4tKg1nQYxCnzOa1STCMIoowWEzEKF8U0TlOQ8S9Ca1lLCIzKReZWZhgZD3PL1xpGLFUtp0W8ut2rA7UTO3u51e7Ozu3qv32XX33yPcz/PiPOd3zvmdc77P+fccKJCUonw3YHLIJrUuU77USvfvq6dMzXc3J8kc6jLm64ZkCVPy3csgUxDHh4I4PhTE8aEgjg8FcXzI2lYuHe7nJ/dQvjuYDhOII+9iRkzUcEF3eEMTuw09J/ZQhBHr63fmohthegCYzUygl3988s5nemYqNS0mkUvmW7l0wnJf29xedsSQb8Q36hODwWA+NMYY02xjV39+SOiQrExWy7WvOaU0Kh16ZYJcJ214Ijvi5IZUxWmnjTY6GZ1SU8TbcrlfdrGZnRznI/FavjuYRcamlbQrj3OL2W1Ho85nu/ynVcQM2aff2hujliEzkvK0usbdyguLdbqRcuBBp9T7D+RT1ADn3Ped29RqUaP71G6v3blTrALQ33itAPJhHgAG3Xecm9WLYhkz6FV79RceIGvVGhYBJ9Wn7pH4+pxb1dNiKbdzmS71vd6XymYAxVd0rygb23LiyAEwh6ytGsDsN8YY0yXvNn3W/izIlfZ9tS2zxRhjzHmn0nTEfLRdEGo2g9F4JLQ2tvbQy+Z83Edul4tTGTnjhK19hUlOJhdkuNGGg7E29THl9v140pIleh/zY+JrjBQ7mDb+ycW7zqyoNK7YGneQgGp10JmT+SGQMXFkJbUAnNN/xJgrqGOEXzlCr/4tuTjcx2G1XjVz2FoUU9mjmvRGegGYLlbYeurE6wD8qZ9XC1Stfm+0Hp3DJT7FqSgWcgmYJhaKNykFYL9n4rKc1Y/VH53QkScavAjovbp31I9+q34TuMhO9RWAqHJHVXuVYmBEPeEeBXBfMjU0Ak+yIWjitIh4Q1htijfozSlIg9rhRQC8MGeoBiJqq01qtTWVATjFNADwoxv1qg6oRmC2rHD7AiVOAt16lft7gjjfpVRy/FAYAaDHC8fF7a22WGBXmyrTEi0xKxoGTJwuRifRRU7rA+pz72JCutGnU/KTWO7fJPlm2rCCitwIkYY46l73gm+GQW94UvWbJPax88wvJJx8GNZnAiZOzum24amiF/LXiIBedrn9dADQMH7ucYrNdnlPLlsRUHFAfwZAmf5SVgHIcr2LDepYSDpp+d3Gcp4hhY2V4E4r1BbdxFxgmWpX3YwwlxKgVCxJ54roAzYCcJBT0c0vOYEdOd6Afpy/bBvnUUUJAK2iOR2vYwfzAY6lkDuw4kD9z2Ix2zkbNQywTTzk9afjsyz6lscTQuZwiuUi+Yh8VC5xxn9Qr/grT5VOc4fBYNZm4z4n93jDXuvYr0X6zKONE9wUdzWQnMCLk2lK7KVCKgR4zck/BXF8KIjjQ0EcHwri+HC97lY9tKTvxHI53525Lvkf2BeWx+QlsZsAAAA7dEVYdENvbW1lbnQAeHI6ZDpEQUZwanFsNlNjczo0LGo6NDE2MTcyMzU5MjE0NzE5MzU2OSx0OjIzMDcyNDE0hBzFLAAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMy0wNy0yNFQxNTowNjowNyswMDowMDdOgBUAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjMtMDctMjRUMTU6MDY6MDcrMDA6MDBGEzipAAAAAElFTkSuQmCC" alt="Prime IT" width="107" height="30" loading="lazy"><p class="muted" style="max-width:40ch" data-i18n="foot.about">"Atrodi savu dīķi" izstrādā Prime IT. Hokeja nodarbības jebkuram līmenim vienuviet.</p></div>
+      <div><p class="eyebrow" data-i18n="foot.nav">Lapas</p><a href="#nodarbibas" data-i18n="nav.sessions">Nodarbības</a><a href="#rikotajs" data-i18n="nav.org">Rīkotājiem</a><a href="#administracija" data-i18n="nav.admin">Administrācija</a></div>
+      <div><p class="eyebrow" data-i18n="foot.contact">Kontakti</p><span class="muted" style="user-select:all">contact@primeit.lv</span><a href="https://primeit.lv/" target="_blank" rel="noopener">primeit.lv</a><a href="https://www.instagram.com/primeitlv/" target="_blank" rel="noopener">Instagram</a></div>
+    </div>
+    <p class="copy">© <span id="year"></span> Prime IT</p>
+  </div>
+</footer>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-h"><div class="modal-box" id="modal-box"></div></div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ================= i18n ================= */
+const I18N = {
+lv:{
+ brand:"Atrodi savu dīķi", "nav.sessions":"Nodarbības","nav.org":"Rīkotājiem","nav.admin":"Administrācija", logout:"Iziet", cancel:"Atcelt",
+ "store.local":"Šajā skatā kopīgā datubāze nav pieejama. Dati glabājas tikai šajā pārlūkā.",
+ "p.eyebrow":"Hokeja nodarbības jebkuram līmenim","p.h1a":"Atrodi savu","p.h1b":"dīķi",
+ "p.lead":"Izvēlies laiku un laukumu, piesakies ar savu vārdu un gaidi rīkotāja apstiprinājumu.",
+ "p.cta":"Izvēlēties nodarbību","p.heroAlt":"Hokeja laukuma rasējums no augšas ar ripu un nūju",
+ "p.listEyebrow":"Publiskotās nodarbības","p.listH":"Izvēlies laiku un laukumu",
+ "p.search":"Meklēt pēc komandas, halles vai nosaukuma","p.searchPh":"Piemēram, halles nosaukums","p.date":"Datums","p.clear":"Notīrīt filtrus",
+ "p.count":n=>n===1?"1 nodarbība":`${n} nodarbības`,
+ "p.howEyebrow":"Kā tas notiek","p.howH":"Trīs soļi līdz ledum",
+ "p.s1h":"Izvēlies nodarbību","p.s1p":"Sarakstā redzams datums, laiks, halle un brīvo vietu skaits.",
+ "p.s2h":"Piesakies ar vārdu","p.s2p":"Obligāts ir tikai vārds. E-pastu un tālruni vari norādīt pēc izvēles.",
+ "p.s3h":"Saņem apstiprinājumu","p.s3p":"Rīkotājs apstiprina dalību. Statusu un adresi redzi sadaļā \"Mani pieteikumi\".",
+ "p.mineEyebrow":"Tikai šajā pārlūkā","p.mineH":"Mani pieteikumi",
+ "p.findSummary":"Pieteicies citā ierīcē? Atrodi pieteikumu pēc numura un koda","p.findNo":"Pieteikuma numurs","p.findCode":"Kods","p.findBtn":"Atrast pieteikumu",
+ "p.findNone":"Pieteikums ar šādu numuru un kodu nav atrasts. Pārbaudi abus laukus.","p.findOk":"Pieteikums pievienots sadaļai \"Mani pieteikumi\".",
+ "p.ctaH":"Ledus ir gatavs. Tava vieta arī.","p.ctaP":"Nodarbības publicē dažādi rīkotāji. Atrodi sev piemērotāko.",
+ "s.signup":"Piesakos","s.full":"Vietu nav","s.already":"Tu jau esi pieteicies","s.free":(f,t)=>`Brīvas ${f} no ${t}`,"s.price":p=>`${p} € · informatīva cena`,"s.free0":"Bez maksas",
+ "s.addrLocked":"Adrese redzama pēc pieteikšanās","s.past":"Notikusi",
+ "empty.sessionsH":"Pagaidām nav nevienas nodarbības","empty.sessionsP":"Kad rīkotājs aktivizēs nodarbību, tā parādīsies šeit.",
+ "empty.filterH":"Nekas neatbilst filtriem","empty.filterP":"Notīri filtrus vai izvēlies citu datumu.",
+ "empty.mineH":"Tev vēl nav pieteikumu","empty.mineP":"Izvēlies nodarbību un spied \"Piesakos\". Pieteikums parādīsies šeit.",
+ "err.loadH":"Neizdevās ielādēt datus","err.loadP":"Datubāze neatbildēja 10 sekunžu laikā. Pārbaudi savienojumu un atver lapu vēlreiz.",
+ "m.signupH":"Pieteikšanās nodarbībai","f.name":"Vārds","f.email":"E-pasts","f.phone":"Tālrunis","f.optional":"pēc izvēles","f.password":"Parole",
+ "m.send":"Nosūtīt pieteikumu","m.sending":"Saglabā…","m.okH":"Pieteikums saglabāts","m.okP":"Saglabā numuru un kodu. Ar tiem pieteikumu var atrast arī citā ierīcē.",
+ "m.no":"Numurs","m.code":"Kods","m.status":"Statuss","m.done":"Skaidrs",
+ "st.signed":"Pieteicies","st.approved":"Apstiprināts","st.rejected":"Noraidīts","st.active":"Aktīva","st.draft":"Melnraksts","st.full":"Pilna","st.past":"Notikusi",
+ "my.cancel":"Atcelt pieteikumu","my.confirm":"Atcelt pieteikumu? Vieta atbrīvosies citiem.","my.yes":"Jā, atcelt","my.no":"Nē",
+ "my.gone":"Šis pieteikums vairs nav sistēmā. To atcēla rīkotājs vai tas tika dzēsts.","my.remove":"Noņemt no saraksta","my.history":"Statusa vēsture",
+ "t.cancelled":"Pieteikums atcelts. Vieta atbrīvota.","t.saved":"Saglabāts","t.err":"Neizdevās saglabāt. Pārbaudi savienojumu un mēģini vēlreiz. Ievadītais saglabāts formā.",
+ "v.required":"Aizpildi šo lauku.","v.email":"Ieraksti e-pastu formā vards@domens.lv.","v.phone":"Tālrunī drīkst būt cipari, atstarpes un +.","v.min8":"Parolei vajag vismaz 8 zīmes.",
+ "v.spots":"Ieraksti veselu skaitli no 1 līdz 60.","v.price":"Cena nevar būt negatīva.","v.past":"Datums nevar būt pagātnē.","v.dupEmail":"Šis e-pasts jau ir pieteikts šai nodarbībai.","v.dupPhone":"Šis tālrunis jau ir pieteikts šai nodarbībai.","v.full":"Kamēr aizpildīji formu, vietas beidzās.","v.orgDup":"Rīkotājs ar šo e-pastu jau ir.",
+ "o.loginEyebrow":"Nodarbību rīkotājiem","o.loginH":"Ienāc rīkotāja panelī","o.loginP":"Profilu tev izveido administrators. Ienāc ar viņa izsniegto e-pastu un paroli.","o.loginBtn":"Ienākt panelī",
+ "o.badLogin":"E-pasts vai parole nav pareiza.","o.inactive":"Šis profils ir apturēts. Sazinies ar administratoru.",
+ "o.eyebrow":"Rīkotāja panelis","o.h1":"Izveido savu komandas profilu","o.lead":"Saglabā nodarbības nosaukumu, vietu un halli vienreiz. Katru jaunu nodarbību izveidosi ar dažiem klikšķiem.",
+ "o.createProfile":"Izveidot profilu","o.newSession":"Jauna nodarbība","o.tplH":"Komandas profils","o.saveProfile":"Saglabāt profilu","o.tplList":"Saglabātie profili","o.tplNone":"Vēl nav neviena profila. Izveido pirmo, lai ātrāk aizpildītu nodarbības.","o.tplDel":"Dzēst profilu","o.tplDeleted":"Profils dzēsts",
+ "f.sTitle":"Nodarbības nosaukums","f.place":"Vieta","f.placePh":"Adrese un pilsēta","f.placeHint":"Spēlētāji to redz tikai pēc pieteikšanās.","f.hall":"Halle","f.useProfile":"Aizpildīt no profila","f.noProfile":"Bez profila",
+ "f.time":"Sākuma laiks","f.spots":"Brīvo vietu skaits","f.spotsHint":"No 1 līdz 60.","f.price":"Cena, EUR (informatīva)","f.desc":"Īss apraksts","f.descPh":"Līmenis, ekipējums, kas jāzina pirms ierašanās",
+ "o.sesH":"Jauna nodarbība","o.sesEditH":"Rediģēt nodarbību","o.activate":"Aktivizēt nodarbību","o.saveDraft":"Saglabāt kā melnrakstu","o.activated":"Nodarbība aktivizēta. Spēlētāji to jau redz.","o.drafted":"Melnraksts saglabāts. Spēlētāji to neredz.",
+ "o.yoursEyebrow":"Pārskats","o.yoursH":"Tavas nodarbības","o.tabUp":"Aktīvās un plānotās","o.tabPast":"Notikušās",
+ "o.statActive":"aktīvas","o.statWaiting":"gaida apstiprinājumu","o.statPlayers":"apstiprināti spēlētāji",
+ "o.participants":(a,t)=>`${a} / ${t} dalībnieki`,"o.open":"Atvērt pieteikumus","o.close":"Aizvērt",
+ "o.noneUpH":"Tev vēl nav plānotu nodarbību","o.noneUpP":"Spied \"Jauna nodarbība\", aizpildi laiku un vietu skaitu un aktivizē to.","o.nonePastH":"Notikušu nodarbību vēl nav","o.nonePastP":"Kad nodarbības datums pagājis, tā pārvietojas šeit.",
+ "o.edit":"Rediģēt","o.toDraft":"Paslēpt (melnraksts)","o.toActive":"Aktivizēt","o.colEmpty":"Nav pieteikumu","o.dragHint":"Velc kartīti uz citu kolonnu vai izmanto pogas.",
+ "o.approve":"Apstiprināt","o.reject":"Noraidīt","o.cancelApp":"Atcelt","o.cancelConfirm":"Dzēst šo pieteikumu? Vieta atbrīvosies.","o.yesDelete":"Jā, dzēst",
+ "o.approved":"Pieteikums apstiprināts","o.rejected":"Pieteikums noraidīts. Vieta atbrīvota.","o.deleted":"Pieteikums dzēsts. Vieta atbrīvota.","o.movedSigned":"Statuss: Pieteicies",
+ "o.noContacts":"Kontakti nav norādīti","o.desc":"Apraksts",
+ "a.role":"Sistēmas administrators","a.eyebrow":"Administratora panelis","a.h1":"Izveido profilu nodarbību rīkotājam!","a.lead":"Rīkotājs ar šo e-pastu un paroli ienāk savā panelī un publicē nodarbības spēlētājiem.",
+ "a.formH":"Nodarbību rīkotāja profils","f.orgName":"Nodarbību rīkotāja vārds","f.team":"Komandas nosaukums","f.passHint":"Vismaz 8 zīmes. Nodod to rīkotājam drošā veidā.",
+ "a.created":"Rīkotāja profils saglabāts. Tagad viņš var ienākt panelī.","a.listEyebrow":"Profili","a.listH":"Nodarbību rīkotāji","a.search":"Meklēt pēc vārda, e-pasta vai komandas",
+ "a.thName":"Vārds","a.thTeam":"Komanda","a.thEmail":"E-pasts","a.thSessions":"Nodarbības","a.thCreated":"Izveidots","a.thStatus":"Statuss","a.thActions":"Darbības",
+ "a.on":"Aktīvs","a.off":"Apturēts","a.suspend":"Apturēt","a.resume":"Atjaunot","a.statOrgs":"rīkotāji","a.statSessions":"aktīvas nodarbības","a.statApps":"pieteikumi",
+ "a.noneH":"Vēl nav neviena rīkotāja","a.noneP":"Spied \"Izveidot profilu\" un ieraksti rīkotāja vārdu, e-pastu, paroli un komandu.",
+ "a.bootH":"Izveido administratora kontu","a.bootP":"Sistēmā vēl nav administratora. Šis būs pirmais konts. Atceries e-pastu un paroli.","a.bootBtn":"Izveidot administratora kontu",
+ "a.loginH":"Ienāc administratora panelī","a.loginP":"Šeit administrators izveido un pārvalda nodarbību rīkotāju profilus.","a.loginBtn":"Ienākt",
+ "foot.about":"\"Atrodi savu dīķi\" izstrādā Prime IT. Hokeja nodarbības jebkuram līmenim vienuviet.","foot.nav":"Lapas","foot.contact":"Kontakti",
+ "title":"Atrodi savu dīķi","meta":"Hokeja nodarbības jebkuram līmenim. Atrodi brīvu vietu laukumā, piesakies un saņem rīkotāja apstiprinājumu.",
+ "loading":"Ielādē…","crypto":"Šis pārlūks neatbalsta drošu paroļu glabāšanu. Atver lapu jaunākā pārlūkā."
+},
+en:{
+ brand:"Find your pond","nav.sessions":"Sessions","nav.org":"For organisers","nav.admin":"Administration",logout:"Log out",cancel:"Cancel",
+ "store.local":"The shared database is not available in this view. Data is kept in this browser only.",
+ "p.eyebrow":"Ice hockey sessions for every level","p.h1a":"Find your","p.h1b":"pond",
+ "p.lead":"Pick a time and a rink, sign up with your name and wait for the organiser to approve you.",
+ "p.cta":"Choose a session","p.heroAlt":"Top-view drawing of a hockey rink with a puck and a stick",
+ "p.listEyebrow":"Published sessions","p.listH":"Pick a time and a rink",
+ "p.search":"Search by team, hall or title","p.searchPh":"For example, a hall name","p.date":"Date","p.clear":"Clear filters",
+ "p.count":n=>n===1?"1 session":`${n} sessions`,
+ "p.howEyebrow":"How it works","p.howH":"Three steps to the ice",
+ "p.s1h":"Choose a session","p.s1p":"The list shows the date, time, hall and number of free spots.",
+ "p.s2h":"Sign up with your name","p.s2p":"Only your name is required. Email and phone are optional.",
+ "p.s3h":"Get approved","p.s3p":"The organiser approves your place. See your status and the address under \"My sign-ups\".",
+ "p.mineEyebrow":"This browser only","p.mineH":"My sign-ups",
+ "p.findSummary":"Signed up on another device? Find your sign-up by number and code","p.findNo":"Sign-up number","p.findCode":"Code","p.findBtn":"Find sign-up",
+ "p.findNone":"No sign-up matches this number and code. Check both fields.","p.findOk":"Sign-up added to \"My sign-ups\".",
+ "p.ctaH":"The ice is ready. So is your spot.","p.ctaP":"Sessions are published by different organisers. Find the one that suits you.",
+ "s.signup":"Sign me up","s.full":"No spots left","s.already":"You are signed up","s.free":(f,t)=>`${f} of ${t} free`,"s.price":p=>`€${p} · informational price`,"s.free0":"Free of charge",
+ "s.addrLocked":"Address shown after you sign up","s.past":"Finished",
+ "empty.sessionsH":"No sessions yet","empty.sessionsP":"When an organiser activates a session, it will appear here.",
+ "empty.filterH":"Nothing matches your filters","empty.filterP":"Clear the filters or pick another date.",
+ "empty.mineH":"You have no sign-ups yet","empty.mineP":"Choose a session and press \"Sign me up\". Your sign-up will show here.",
+ "err.loadH":"Could not load data","err.loadP":"The database did not answer within 10 seconds. Check your connection and open the page again.",
+ "m.signupH":"Sign up for the session","f.name":"Name","f.email":"Email","f.phone":"Phone","f.optional":"optional","f.password":"Password",
+ "m.send":"Send sign-up","m.sending":"Saving…","m.okH":"Sign-up saved","m.okP":"Keep the number and the code. You can use them to find your sign-up on another device.",
+ "m.no":"Number","m.code":"Code","m.status":"Status","m.done":"Got it",
+ "st.signed":"Signed up","st.approved":"Approved","st.rejected":"Rejected","st.active":"Active","st.draft":"Draft","st.full":"Full","st.past":"Finished",
+ "my.cancel":"Cancel sign-up","my.confirm":"Cancel your sign-up? The spot will be freed for others.","my.yes":"Yes, cancel","my.no":"No",
+ "my.gone":"This sign-up is no longer in the system. The organiser cancelled or deleted it.","my.remove":"Remove from list","my.history":"Status history",
+ "t.cancelled":"Sign-up cancelled. The spot is free.","t.saved":"Saved","t.err":"Could not save. Check your connection and try again. Your input is still in the form.",
+ "v.required":"Fill in this field.","v.email":"Enter an email like name@domain.com.","v.phone":"Use digits, spaces and + only.","v.min8":"The password needs at least 8 characters.",
+ "v.spots":"Enter a whole number from 1 to 60.","v.price":"The price cannot be negative.","v.past":"The date cannot be in the past.","v.dupEmail":"This email is already signed up for this session.","v.dupPhone":"This phone is already signed up for this session.","v.full":"The spots ran out while you were filling in the form.","v.orgDup":"An organiser with this email already exists.",
+ "o.loginEyebrow":"For session organisers","o.loginH":"Log in to the organiser panel","o.loginP":"Your profile is created by the administrator. Log in with the email and password they gave you.","o.loginBtn":"Log in",
+ "o.badLogin":"Email or password is incorrect.","o.inactive":"This profile is suspended. Contact the administrator.",
+ "o.eyebrow":"Organiser panel","o.h1":"Create your team profile","o.lead":"Save the session title, place and hall once. Each new session then takes a few clicks.",
+ "o.createProfile":"Create profile","o.newSession":"New session","o.tplH":"Team profile","o.saveProfile":"Save profile","o.tplList":"Saved profiles","o.tplNone":"No profiles yet. Create one to fill in sessions faster.","o.tplDel":"Delete profile","o.tplDeleted":"Profile deleted",
+ "f.sTitle":"Session title","f.place":"Place","f.placePh":"Address and city","f.placeHint":"Players see it only after signing up.","f.hall":"Hall","f.useProfile":"Fill in from a profile","f.noProfile":"No profile",
+ "f.time":"Start time","f.spots":"Number of free spots","f.spotsHint":"From 1 to 60.","f.price":"Price, EUR (informational)","f.desc":"Short description","f.descPh":"Level, equipment, what to know before you arrive",
+ "o.sesH":"New session","o.sesEditH":"Edit session","o.activate":"Activate session","o.saveDraft":"Save as draft","o.activated":"Session activated. Players can see it now.","o.drafted":"Draft saved. Players cannot see it.",
+ "o.yoursEyebrow":"Overview","o.yoursH":"Your sessions","o.tabUp":"Active and planned","o.tabPast":"Finished",
+ "o.statActive":"active","o.statWaiting":"awaiting approval","o.statPlayers":"approved players",
+ "o.participants":(a,t)=>`${a} / ${t} players`,"o.open":"Open sign-ups","o.close":"Close",
+ "o.noneUpH":"You have no planned sessions yet","o.noneUpP":"Press \"New session\", fill in the time and spots, and activate it.","o.nonePastH":"No finished sessions yet","o.nonePastP":"Once a session date has passed, it moves here.",
+ "o.edit":"Edit","o.toDraft":"Hide (draft)","o.toActive":"Activate","o.colEmpty":"No sign-ups","o.dragHint":"Drag a card to another column or use the buttons.",
+ "o.approve":"Approve","o.reject":"Reject","o.cancelApp":"Cancel","o.cancelConfirm":"Delete this sign-up? The spot will be freed.","o.yesDelete":"Yes, delete",
+ "o.approved":"Sign-up approved","o.rejected":"Sign-up rejected. The spot is free.","o.deleted":"Sign-up deleted. The spot is free.","o.movedSigned":"Status: Signed up",
+ "o.noContacts":"No contact details given","o.desc":"Description",
+ "a.role":"System administrator","a.eyebrow":"Administrator panel","a.h1":"Create a profile for a session organiser!","a.lead":"The organiser logs in with this email and password and publishes sessions for players.",
+ "a.formH":"Session organiser profile","f.orgName":"Organiser name","f.team":"Team name","f.passHint":"At least 8 characters. Hand it to the organiser securely.",
+ "a.created":"Organiser profile saved. They can log in now.","a.listEyebrow":"Profiles","a.listH":"Session organisers","a.search":"Search by name, email or team",
+ "a.thName":"Name","a.thTeam":"Team","a.thEmail":"Email","a.thSessions":"Sessions","a.thCreated":"Created","a.thStatus":"Status","a.thActions":"Actions",
+ "a.on":"Active","a.off":"Suspended","a.suspend":"Suspend","a.resume":"Restore","a.statOrgs":"organisers","a.statSessions":"active sessions","a.statApps":"sign-ups",
+ "a.noneH":"No organisers yet","a.noneP":"Press \"Create profile\" and enter the organiser's name, email, password and team.",
+ "a.bootH":"Create the administrator account","a.bootP":"There is no administrator yet. This will be the first account. Remember the email and password.","a.bootBtn":"Create administrator account",
+ "a.loginH":"Log in to the administrator panel","a.loginP":"Here the administrator creates and manages session organiser profiles.","a.loginBtn":"Log in",
+ "foot.about":"\"Find your pond\" is built by Prime IT. Ice hockey sessions for every level in one place.","foot.nav":"Pages","foot.contact":"Contact",
+ "title":"Find your pond","meta":"Ice hockey sessions for every level. Find a free spot on the ice, sign up and get approved by the organiser.",
+ "loading":"Loading…","crypto":"This browser cannot store passwords securely. Open the page in a newer browser."
+},
+ru:{
+ brand:"Найди свой пруд","nav.sessions":"Тренировки","nav.org":"Организаторам","nav.admin":"Администрирование",logout:"Выйти",cancel:"Отмена",
+ "store.local":"Общая база данных в этом окне недоступна. Данные хранятся только в этом браузере.",
+ "p.eyebrow":"Хоккейные тренировки для любого уровня","p.h1a":"Найди свой","p.h1b":"пруд",
+ "p.lead":"Выбери время и площадку, запишись под своим именем и дождись подтверждения организатора.",
+ "p.cta":"Выбрать тренировку","p.heroAlt":"Чертёж хоккейной площадки сверху с шайбой и клюшкой",
+ "p.listEyebrow":"Опубликованные тренировки","p.listH":"Выбери время и площадку",
+ "p.search":"Поиск по команде, залу или названию","p.searchPh":"Например, название зала","p.date":"Дата","p.clear":"Сбросить фильтры",
+ "p.count":n=>{const m=n%10,c=n%100;return `${n} ${m===1&&c!==11?"тренировка":(m>=2&&m<=4&&(c<12||c>14)?"тренировки":"тренировок")}`},
+ "p.howEyebrow":"Как это работает","p.howH":"Три шага до льда",
+ "p.s1h":"Выбери тренировку","p.s1p":"В списке видны дата, время, зал и число свободных мест.",
+ "p.s2h":"Запишись под своим именем","p.s2p":"Обязательно только имя. Почту и телефон можно указать по желанию.",
+ "p.s3h":"Получи подтверждение","p.s3p":"Организатор подтверждает участие. Статус и адрес видны в разделе «Мои заявки».",
+ "p.mineEyebrow":"Только в этом браузере","p.mineH":"Мои заявки",
+ "p.findSummary":"Записывался с другого устройства? Найди заявку по номеру и коду","p.findNo":"Номер заявки","p.findCode":"Код","p.findBtn":"Найти заявку",
+ "p.findNone":"Заявка с таким номером и кодом не найдена. Проверь оба поля.","p.findOk":"Заявка добавлена в «Мои заявки».",
+ "p.ctaH":"Лёд готов. Твоё место тоже.","p.ctaP":"Тренировки публикуют разные организаторы. Найди подходящую.",
+ "s.signup":"Записаться","s.full":"Мест нет","s.already":"Ты уже записан","s.free":(f,t)=>`Свободно ${f} из ${t}`,"s.price":p=>`${p} € · цена для информации`,"s.free0":"Бесплатно",
+ "s.addrLocked":"Адрес виден после записи","s.past":"Прошла",
+ "empty.sessionsH":"Пока нет ни одной тренировки","empty.sessionsP":"Когда организатор активирует тренировку, она появится здесь.",
+ "empty.filterH":"Ничего не найдено","empty.filterP":"Сбрось фильтры или выбери другую дату.",
+ "empty.mineH":"У тебя пока нет заявок","empty.mineP":"Выбери тренировку и нажми «Записаться». Заявка появится здесь.",
+ "err.loadH":"Не удалось загрузить данные","err.loadP":"База данных не ответила за 10 секунд. Проверь соединение и открой страницу заново.",
+ "m.signupH":"Запись на тренировку","f.name":"Имя","f.email":"Эл. почта","f.phone":"Телефон","f.optional":"по желанию","f.password":"Пароль",
+ "m.send":"Отправить заявку","m.sending":"Сохраняем…","m.okH":"Заявка сохранена","m.okP":"Сохрани номер и код. По ним заявку можно найти и на другом устройстве.",
+ "m.no":"Номер","m.code":"Код","m.status":"Статус","m.done":"Понятно",
+ "st.signed":"Записан","st.approved":"Подтверждено","st.rejected":"Отклонено","st.active":"Активна","st.draft":"Черновик","st.full":"Мест нет","st.past":"Прошла",
+ "my.cancel":"Отменить заявку","my.confirm":"Отменить заявку? Место освободится для других.","my.yes":"Да, отменить","my.no":"Нет",
+ "my.gone":"Этой заявки больше нет в системе. Её отменил организатор или она удалена.","my.remove":"Убрать из списка","my.history":"История статусов",
+ "t.cancelled":"Заявка отменена. Место освобождено.","t.saved":"Сохранено","t.err":"Не удалось сохранить. Проверь соединение и попробуй ещё раз. Введённые данные остались в форме.",
+ "v.required":"Заполни это поле.","v.email":"Введи почту в виде имя@домен.lv.","v.phone":"Только цифры, пробелы и +.","v.min8":"Пароль должен быть не короче 8 символов.",
+ "v.spots":"Введи целое число от 1 до 60.","v.price":"Цена не может быть отрицательной.","v.past":"Дата не может быть в прошлом.","v.dupEmail":"Эта почта уже записана на эту тренировку.","v.dupPhone":"Этот телефон уже записан на эту тренировку.","v.full":"Пока ты заполнял форму, места закончились.","v.orgDup":"Организатор с такой почтой уже есть.",
+ "o.loginEyebrow":"Для организаторов","o.loginH":"Вход в панель организатора","o.loginP":"Профиль создаёт администратор. Войди с почтой и паролем, которые он выдал.","o.loginBtn":"Войти",
+ "o.badLogin":"Неверная почта или пароль.","o.inactive":"Этот профиль приостановлен. Свяжись с администратором.",
+ "o.eyebrow":"Панель организатора","o.h1":"Создай профиль своей команды","o.lead":"Сохрани название, место и зал один раз. Каждую новую тренировку создашь за пару кликов.",
+ "o.createProfile":"Создать профиль","o.newSession":"Новая тренировка","o.tplH":"Профиль команды","o.saveProfile":"Сохранить профиль","o.tplList":"Сохранённые профили","o.tplNone":"Профилей пока нет. Создай первый, чтобы быстрее заполнять тренировки.","o.tplDel":"Удалить профиль","o.tplDeleted":"Профиль удалён",
+ "f.sTitle":"Название тренировки","f.place":"Место","f.placePh":"Адрес и город","f.placeHint":"Игроки видят его только после записи.","f.hall":"Зал","f.useProfile":"Заполнить из профиля","f.noProfile":"Без профиля",
+ "f.time":"Время начала","f.spots":"Количество свободных мест","f.spotsHint":"От 1 до 60.","f.price":"Цена, EUR (для информации)","f.desc":"Краткое описание","f.descPh":"Уровень, экипировка, что важно знать заранее",
+ "o.sesH":"Новая тренировка","o.sesEditH":"Изменить тренировку","o.activate":"Активировать тренировку","o.saveDraft":"Сохранить как черновик","o.activated":"Тренировка активирована. Игроки уже её видят.","o.drafted":"Черновик сохранён. Игроки его не видят.",
+ "o.yoursEyebrow":"Обзор","o.yoursH":"Твои тренировки","o.tabUp":"Активные и запланированные","o.tabPast":"Прошедшие",
+ "o.statActive":"активные","o.statWaiting":"ждут подтверждения","o.statPlayers":"подтверждённые игроки",
+ "o.participants":(a,t)=>`${a} / ${t} участников`,"o.open":"Открыть заявки","o.close":"Закрыть",
+ "o.noneUpH":"Запланированных тренировок пока нет","o.noneUpP":"Нажми «Новая тренировка», укажи время и число мест и активируй её.","o.nonePastH":"Прошедших тренировок пока нет","o.nonePastP":"Когда дата тренировки пройдёт, она переместится сюда.",
+ "o.edit":"Изменить","o.toDraft":"Скрыть (черновик)","o.toActive":"Активировать","o.colEmpty":"Нет заявок","o.dragHint":"Перетащи карточку в другую колонку или используй кнопки.",
+ "o.approve":"Подтвердить","o.reject":"Отклонить","o.cancelApp":"Отменить","o.cancelConfirm":"Удалить эту заявку? Место освободится.","o.yesDelete":"Да, удалить",
+ "o.approved":"Заявка подтверждена","o.rejected":"Заявка отклонена. Место освобождено.","o.deleted":"Заявка удалена. Место освобождено.","o.movedSigned":"Статус: Записан",
+ "o.noContacts":"Контакты не указаны","o.desc":"Описание",
+ "a.role":"Системный администратор","a.eyebrow":"Панель администратора","a.h1":"Создай профиль организатора тренировок!","a.lead":"Организатор входит с этой почтой и паролем и публикует тренировки для игроков.",
+ "a.formH":"Профиль организатора","f.orgName":"Имя организатора","f.team":"Название команды","f.passHint":"Не короче 8 символов. Передай пароль организатору безопасно.",
+ "a.created":"Профиль организатора сохранён. Теперь он может войти.","a.listEyebrow":"Профили","a.listH":"Организаторы тренировок","a.search":"Поиск по имени, почте или команде",
+ "a.thName":"Имя","a.thTeam":"Команда","a.thEmail":"Эл. почта","a.thSessions":"Тренировки","a.thCreated":"Создан","a.thStatus":"Статус","a.thActions":"Действия",
+ "a.on":"Активен","a.off":"Приостановлен","a.suspend":"Приостановить","a.resume":"Восстановить","a.statOrgs":"организаторы","a.statSessions":"активные тренировки","a.statApps":"заявки",
+ "a.noneH":"Организаторов пока нет","a.noneP":"Нажми «Создать профиль» и укажи имя, почту, пароль и команду организатора.",
+ "a.bootH":"Создай учётную запись администратора","a.bootP":"Администратора в системе ещё нет. Это будет первая учётная запись. Запомни почту и пароль.","a.bootBtn":"Создать учётную запись",
+ "a.loginH":"Вход в панель администратора","a.loginP":"Здесь администратор создаёт профили организаторов и управляет ими.","a.loginBtn":"Войти",
+ "foot.about":"«Найди свой пруд» разрабатывает Prime IT. Хоккейные тренировки для любого уровня в одном месте.","foot.nav":"Страницы","foot.contact":"Контакты",
+ "title":"Найди свой пруд","meta":"Хоккейные тренировки для любого уровня. Найди свободное место на льду, запишись и получи подтверждение организатора.",
+ "loading":"Загрузка…","crypto":"Этот браузер не умеет безопасно хранить пароли. Открой страницу в более новом браузере."
+}};
+const LOCALE = {lv:"lv-LV", en:"en-GB", ru:"ru-RU"};
+const safe = {
+  get(k, s=localStorage){ try{ return s.getItem(k) }catch{ return null } },
+  set(k, v, s=localStorage){ try{ s.setItem(k, v) }catch{} },
+  del(k, s=localStorage){ try{ s.removeItem(k) }catch{} },
+};
+let lang = (()=>{ const s = safe.get("hh-lang"); if (I18N[s]) return s; const n = (navigator.language||"lv").slice(0,2); return I18N[n] ? n : "lv"; })();
+function t(key, ...a){ const v = (I18N[lang] && I18N[lang][key]) ?? I18N.lv[key] ?? key; return typeof v === "function" ? v(...a) : v; }
+function applyI18n(root=document){
+  root.querySelectorAll("[data-i18n]").forEach(el=>{ el.textContent = t(el.dataset.i18n) });
+  root.querySelectorAll("[data-i18n-ph]").forEach(el=>{ el.placeholder = t(el.dataset.i18nPh) });
+}
+function setLang(l){
+  lang = l; safe.set("hh-lang", l);
+  document.documentElement.lang = l;
+  document.title = t("title");
+  const md = document.querySelector('meta[name="description"]'); if (md) md.content = t("meta");
+  document.querySelectorAll("[data-lang]").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.lang===l)));
+  applyI18n(); renderAll();
+}
+
+/* ================= helpers ================= */
+const $ = (s, r=document)=>r.querySelector(s);
+const $$ = (s, r=document)=>[...r.querySelectorAll(s)];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const icon = (id, cls="icon") => `<svg class="${cls}" aria-hidden="true"><use href="#i-${id}"/></svg>`;
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36)+Math.random().toString(36).slice(2));
+const nowIso = () => new Date().toISOString();
+const todayStr = () => { const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}` };
+const initials = n => String(n||"?").trim().split(/\s+/).slice(0,2).map(p=>p[0]).join("").toUpperCase();
+const fmtDate = (d, o={day:"numeric",month:"long",weekday:"long"}) => { try{ return new Intl.DateTimeFormat(LOCALE[lang], o).format(new Date(d+"T12:00:00")) }catch{ return d } };
+const fmtDT = iso => { try{ return new Intl.DateTimeFormat(LOCALE[lang], {day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}).format(new Date(iso)) }catch{ return iso } };
+const fmtPrice = p => (Number(p)>0 ? t("s.price", new Intl.NumberFormat(LOCALE[lang],{maximumFractionDigits:2}).format(Number(p))) : t("s.free0"));
+const isPast = s => s.date < todayStr();
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const PHONE_RE = /^\+?[0-9 ]{6,20}$/;
+const normPhone = p => String(p||"").replace(/\s+/g,"");
+function toast(msg, kind="ok"){
+  const el = document.createElement("div"); el.className = `toast ${kind}`; el.setAttribute("role","status");
+  el.innerHTML = icon(kind==="ok"?"check":"info") + `<span>${esc(msg)}</span>`;
+  $("#toasts").append(el); setTimeout(()=>el.remove(), 4200);
+}
+function setBusy(btn, busy){
+  if (!btn) return;
+  if (busy){ btn.dataset.label = btn.innerHTML; btn.disabled = true; btn.innerHTML = `<span class="spin" aria-hidden="true"></span><span>${esc(t("m.sending"))}</span>`; }
+  else { btn.disabled = false; if (btn.dataset.label) btn.innerHTML = btn.dataset.label; }
+}
+function fieldErr(input, msg){
+  const f = input.closest(".field"); if (!f) return;
+  f.classList.toggle("invalid", !!msg);
+  input.setAttribute("aria-invalid", msg ? "true" : "false");
+  const e = f.querySelector(".err"); if (e) e.textContent = msg || "";
+}
+function formMsg(form, msg){ const m = form.querySelector(".form-msg"); if (!m) return; m.hidden = !msg; m.textContent = msg || ""; }
+function validate(input){
+  const v = input.value.trim(); let m = "";
+  if (input.required && !v) m = t("v.required");
+  else if (v && input.type==="email" && !EMAIL_RE.test(v)) m = t("v.email");
+  else if (v && input.type==="tel" && !PHONE_RE.test(v)) m = t("v.phone");
+  else if (v && input.id==="oc-pass" && v.length<8) m = t("v.min8");
+  else if (input.id==="s-spots" && v && (!/^\d+$/.test(v) || +v<1 || +v>60)) m = t("v.spots");
+  else if (input.id==="s-price" && v && +v<0) m = t("v.price");
+  else if (input.id==="s-date" && v && v < todayStr()) m = t("v.past");
+  fieldErr(input, m); return !m;
+}
+function validateForm(form){ let ok = true, first=null; $$("input:not(.hp input),textarea,select", form).forEach(i=>{ if(!validate(i)){ ok=false; first ||= i; } }); first?.focus(); return ok; }
+document.addEventListener("input", e=>{ const i=e.target; if (i.matches(".field input,.field textarea") && i.closest(".field.invalid")) validate(i); });
+document.addEventListener("focusout", e=>{ const i=e.target; if (i.matches(".field input,.field textarea") && i.value) validate(i); });
+
+/* ================= passwords (PBKDF2, never plain text) ================= */
+const b64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
+const unb64 = s => Uint8Array.from(atob(s), c=>c.charCodeAt(0));
+async function hashPassword(pw, saltB64){
+  if (!crypto?.subtle) throw new Error("crypto");
+  const salt = saltB64 ? unb64(saltB64) : crypto.getRandomValues(new Uint8Array(16));
+  const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveBits"]);
+  const bits = await crypto.subtle.deriveBits({name:"PBKDF2", salt, iterations:150000, hash:"SHA-256"}, key, 256);
+  return { hash:b64(bits), salt:b64(salt), algo:"pbkdf2-sha256-150000" };
+}
+async function checkPassword(pw, rec){ try{ const h = await hashPassword(pw, rec.salt); return h.hash === rec.hash }catch{ return false } }
+
+/* ================= data store (one module; swap adapter for Azure PostgreSQL later) ================= */
+const COLS = ["admins","organizers","templates","sessions","applications"];
+const Store = {
+  ready:false, failed:false, mode:"loading", data:Object.fromEntries(COLS.map(c=>[c,[]])), seen:new Set(), adapter:null,
+  async init(){
+    let db = null;
+    try { db = window.claude?.use ? await window.claude.use("db") : null } catch { db = null }
+    this.adapter = db ? dbAdapter(db) : localAdapter();
+    this.mode = db ? "db" : "local";
+    $("#store-banner-wrap").hidden = this.mode === "db";
+    const timer = setTimeout(()=>{ if (!this.ready){ this.failed = true; renderAll(); } }, 10000);
+    COLS.forEach(col => this.adapter.subscribe(col, docs => {
+      this.data[col] = docs; this.seen.add(col);
+      if (!this.ready && this.seen.size === COLS.length){ this.ready = true; this.failed = false; clearTimeout(timer); }
+      if (this.ready) renderAll();
+    }, () => { this.failed = true; renderAll(); }));
+  },
+  set(col, id, doc){ return this.adapter.set(col, id, doc) },
+  update(col, id, patch){ return this.adapter.update(col, id, patch) },
+  remove(col, id){ return this.adapter.remove(col, id) },
+  async nextNumber(){ return this.adapter.nextNumber() },
+  get(col, id){ return this.data[col].find(d=>d.id===id) },
+};
+function clean(o){ return JSON.parse(JSON.stringify(o)) }
+function dbAdapter(db){
+  return {
+    subscribe(col, cb, onErr){ db.collection(col).onSnapshot(s=>cb(s.docs.map(d=>({id:d.id, ...d.data()}))), e=>{ console.warn(e); onErr?.(e) }) },
+    set:(col,id,doc)=>db.collection(col).doc(id).set(clean(doc)),
+    update:(col,id,p)=>db.collection(col).doc(id).update(clean(p)),
+    remove:(col,id)=>db.collection(col).doc(id).delete(),
+    async nextNumber(){
+      const ref = db.doc("meta/counters"); const snap = await ref.get();
+      const n = ((snap.exists && snap.data().applications) || 0) + 1;
+      await ref.set({ applications:n, updatedAt:nowIso() }); return n;
+    }
+  };
+}
+function localAdapter(){
+  const KEY = "hh-ice-local-db"; const subs = {};
+  const load = () => { try{ return JSON.parse(safe.get(KEY)) || {} }catch{ return {} } };
+  const save = d => safe.set(KEY, JSON.stringify(d));
+  const emit = col => { const d = load()[col] || {}; (subs[col]||[]).forEach(cb=>cb(Object.entries(d).map(([id,v])=>({id,...v})))) };
+  window.addEventListener("storage", e=>{ if (e.key===KEY) COLS.forEach(emit) });
+  const write = (col, fn) => { const d = load(); d[col] ||= {}; fn(d[col]); save(d); setTimeout(()=>emit(col)); return Promise.resolve(); };
+  return {
+    subscribe(col, cb){ (subs[col] ||= []).push(cb); setTimeout(()=>emit(col), 150) },
+    set:(col,id,doc)=>write(col, c=>{ c[id] = clean(doc) }),
+    update:(col,id,p)=>write(col, c=>{ c[id] = {...c[id], ...clean(p)} }),
+    remove:(col,id)=>write(col, c=>{ delete c[id] }),
+    async nextNumber(){ const d = load(); d.meta ||= {}; d.meta.applications = (d.meta.applications||0)+1; save(d); return d.meta.applications; }
+  };
+}
+
+/* ================= derived data ================= */
+const taken = sid => Store.data.applications.filter(a=>a.sessionId===sid && (a.status==="signed"||a.status==="approved")).length;
+const freeSpots = s => Math.max(0, (+s.spots||0) - taken(s.id));
+const sortDesc = (a,b) => (b.date+b.time).localeCompare(a.date+a.time);
+function sessionStatus(s){ if (isPast(s)) return "past"; if (s.status!=="active") return "draft"; return freeSpots(s)===0 ? "full" : "active"; }
+const chip = st => `<span class="chip chip-${st}">${esc(t("st."+st))}</span>`;
+
+/* ================= auth (per tab) ================= */
+let auth = (()=>{ try{ return JSON.parse(safe.get("hh-auth", sessionStorage)) }catch{ return null } })();
+function setAuth(a){ auth = a; a ? safe.set("hh-auth", JSON.stringify(a), sessionStorage) : safe.del("hh-auth", sessionStorage); renderAll(); }
+const currentOrg = () => auth?.role==="org" ? Store.get("organizers", auth.id) : null;
+const currentAdmin = () => auth?.role==="admin" ? Store.get("admins", auth.id) : null;
+document.addEventListener("click", e=>{ if (e.target.closest("[data-logout]")) setAuth(null) });
+
+/* ================= my sign-ups (this browser) ================= */
+const MY_KEY = "hh-my-apps";
+const myApps = () => { try{ return JSON.parse(safe.get(MY_KEY)) || [] }catch{ return [] } };
+const saveMy = l => safe.set(MY_KEY, JSON.stringify(l));
+
+/* ================= routing ================= */
+const ROUTES = ["nodarbibas","rikotajs","administracija"];
+function route(){ const h = location.hash.slice(1); return ROUTES.includes(h) ? h : "nodarbibas"; }
+function showRoute(){
+  const r = route();
+  $$("[data-view]").forEach(v=>v.hidden = v.id !== "view-"+r);
+  $$("[data-route]").forEach(a=>{ if (a.dataset.route===r) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  window.scrollTo({top:0});
+  renderAll(); observeReveal();
+}
+window.addEventListener("hashchange", showRoute);
+
+/* ================= render: shared states ================= */
+const skeleton = n => Array.from({length:n}, ()=>`<div class="skel" aria-hidden="true"></div>`).join("") + `<span class="sr">${esc(t("loading"))}</span>`;
+const NET_SVG = `<svg class="ill" viewBox="0 0 160 110" aria-hidden="true"><defs><linearGradient id="eg" x1="0" x2="1"><stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#2dd9e8"/></linearGradient></defs><path d="M20 95V30a10 10 0 0 1 10-10h100a10 10 0 0 1 10 10v65" fill="none" stroke="url(#eg)" stroke-width="3"/><g stroke="#2dd9e8" stroke-opacity=".3" stroke-width="1"><path d="M40 20v75M60 20v75M80 20v75M100 20v75M120 20v75M20 40h120M20 60h120M20 80h120"/></g><path d="M8 100h144" stroke="#a3aac6" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="4 6"/><ellipse cx="80" cy="100" rx="12" ry="4" fill="#151833" stroke="url(#eg)" stroke-width="1.5"/></svg>`;
+const emptyState = (h, p, extra="") => `<div class="state" style="grid-column:1/-1">${NET_SVG}<h3>${esc(h)}</h3><p>${esc(p)}</p>${extra}</div>`;
+const errorState = () => emptyState(t("err.loadH"), t("err.loadP"));
+
+function renderAll(){
+  const r = route();
+  if (r==="nodarbibas"){ renderPortal(); renderMine(); }
+  if (r==="rikotajs") renderOrg();
+  if (r==="administracija") renderAdmin();
+}
+
+/* ================= PLAYER PORTAL ================= */
+function sessionCard(s, i){
+  const st = sessionStatus(s), free = freeSpots(s), total = +s.spots||0;
+  const mine = myApps().some(m=>{ const a = Store.get("applications", m.id); return a && a.sessionId===s.id && a.status!=="rejected" });
+  const d = new Date(s.date+"T12:00:00");
+  let btn;
+  if (mine) btn = `<button class="btn btn-secondary btn-sm" type="button" data-scroll="#mani">${icon("check")}<span>${esc(t("s.already"))}</span></button>`;
+  else if (st==="full") btn = `<button class="btn btn-secondary btn-sm" type="button" disabled>${esc(t("s.full"))}</button>`;
+  else btn = `<button class="btn btn-primary btn-sm" type="button" data-signup="${esc(s.id)}">${esc(t("s.signup"))}</button>`;
+  return `<article class="card s-card pop" style="animation-delay:${Math.min(i,8)*60}ms">
+    <div class="date-tile num" aria-hidden="true"><small>${esc(fmtDate(s.date,{month:"short"}))}</small><b>${d.getDate()}</b><i>${esc(fmtDate(s.date,{weekday:"short"}))}</i></div>
+    <div class="s-body">
+      <div class="row" style="justify-content:space-between"><h3>${esc(s.title)}</h3>${st==="full"?chip("full"):""}</div>
+      <div class="meta"><span>${icon("team")}${esc(s.team)}</span><span>${icon("rink")}${esc(s.hall)}</span></div>
+      <div class="meta num"><span>${icon("cal")}${esc(fmtDate(s.date))}</span><span>${icon("clock")}${esc(s.time)}</span><span>${icon("euro")}${esc(fmtPrice(s.price))}</span></div>
+      ${s.description?`<p class="desc">${esc(s.description)}</p>`:""}
+      <p class="addr locked">${icon("lock")}<span>${esc(t("s.addrLocked"))}</span></p>
+    </div>
+    <div class="s-foot">
+      <div class="spots num"><span class="muted" style="font-size:14px">${esc(t("s.free", free, total))}</span><div class="bar"><i style="transform:scaleX(${total? (total-free)/total : 0})"></i></div></div>
+      ${btn}
+    </div>
+  </article>`;
+}
+function renderPortal(){
+  const box = $("#session-list"), cnt = $("#list-count");
+  if (Store.failed && !Store.ready){ box.innerHTML = errorState(); cnt.textContent=""; return; }
+  if (!Store.ready){ box.innerHTML = skeleton(3); return; }
+  const q = $("#f-q").value.trim().toLowerCase(), d = $("#f-date").value;
+  const published = Store.data.sessions.filter(s=>s.status==="active" && !isPast(s) && Store.get("organizers", s.organizerId)?.active !== false);
+  const list = published.filter(s=>(!d || s.date===d) && (!q || [s.title,s.team,s.hall].join(" ").toLowerCase().includes(q))).sort(sortDesc);
+  cnt.textContent = t("p.count", list.length);
+  if (!published.length){ box.innerHTML = emptyState(t("empty.sessionsH"), t("empty.sessionsP")); return; }
+  if (!list.length){ box.innerHTML = emptyState(t("empty.filterH"), t("empty.filterP")); return; }
+  box.innerHTML = list.map(sessionCard).join("");
+}
+$("#f-q").addEventListener("input", renderPortal);
+$("#f-date").addEventListener("change", renderPortal);
+$("#f-clear").addEventListener("click", ()=>{ $("#f-q").value=""; $("#f-date").value=""; renderPortal(); });
+
+function renderMine(){
+  const box = $("#my-list");
+  if (!Store.ready){ box.innerHTML = Store.failed ? errorState() : skeleton(1); return; }
+  const mine = myApps();
+  if (!mine.length){ box.innerHTML = emptyState(t("empty.mineH"), t("empty.mineP")); return; }
+  box.innerHTML = mine.map(m=>{
+    const a = Store.get("applications", m.id);
+    if (!a || a.code !== m.code) return `<article class="card app-card"><div class="s-body"><h3 class="num">${esc(m.number||"")}</h3><p class="muted">${esc(t("my.gone"))}</p></div><div class="app-actions"><button class="btn btn-ghost btn-sm" type="button" data-forget="${esc(m.id)}">${esc(t("my.remove"))}</button></div></article>`;
+    const s = Store.get("sessions", a.sessionId) || {};
+    const showAddr = a.status==="signed" || a.status==="approved";
+    const confirming = pendingCancel === a.id;
+    return `<article class="card app-card">
+      <div class="s-body">
+        <div class="row"><b class="num" style="font-family:var(--f-head);font-size:20px">${esc(a.number)}</b>${chip(a.status)}</div>
+        <h3>${esc(s.title||"")}</h3>
+        <div class="meta num"><span>${icon("cal")}${esc(s.date?fmtDate(s.date):"")}</span><span>${icon("clock")}${esc(s.time||"")}</span><span>${icon("rink")}${esc(s.hall||"")}</span><span>${icon("team")}${esc(s.team||"")}</span></div>
+        ${showAddr && s.place ? `<p class="addr">${icon("pin")}<span>${esc(s.place)}</span></p>` : ""}
+        <details><summary>${esc(t("my.history"))}</summary><ul class="history num">${(a.history||[]).map(h=>`<li>${esc(fmtDT(h.at))} · ${esc(t("st."+h.status))}</li>`).join("")}</ul></details>
+      </div>
+      <div class="app-actions">${!confirming && a.status!=="rejected" ? `<button class="btn btn-err btn-sm" type="button" data-mycancel="${esc(a.id)}">${icon("x")}<span>${esc(t("my.cancel"))}</span></button>` : ""}${a.status==="rejected"?`<button class="btn btn-ghost btn-sm" type="button" data-forget="${esc(a.id)}">${esc(t("my.remove"))}</button>`:""}</div>
+      ${confirming ? `<div class="confirm" role="alert"><span>${esc(t("my.confirm"))}</span><button class="btn btn-err btn-sm" type="button" data-mycancel-yes="${esc(a.id)}">${esc(t("my.yes"))}</button><button class="btn btn-ghost btn-sm" type="button" data-mycancel-no>${esc(t("my.no"))}</button></div>` : ""}
+    </article>`;
+  }).join("");
+}
+let pendingCancel = null;
+document.addEventListener("click", async e=>{
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.scroll){ const el = $(b.dataset.scroll); if (location.hash.slice(1)!=="nodarbibas" && route()!=="nodarbibas") location.hash="nodarbibas"; el?.scrollIntoView({behavior:"smooth", block:"start"}); return; }
+  if (b.dataset.signup) return openSignup(b.dataset.signup);
+  if (b.dataset.mycancel){ pendingCancel = b.dataset.mycancel; renderMine(); return; }
+  if (b.hasAttribute("data-mycancel-no")){ pendingCancel = null; renderMine(); return; }
+  if (b.dataset.mycancelYes){
+    setBusy(b, true);
+    try { await Store.remove("applications", b.dataset.mycancelYes); saveMy(myApps().filter(m=>m.id!==b.dataset.mycancelYes)); pendingCancel=null; toast(t("t.cancelled")); renderAll(); }
+    catch { setBusy(b,false); toast(t("t.err"), "err"); }
+    return;
+  }
+  if (b.dataset.forget){ saveMy(myApps().filter(m=>m.id!==b.dataset.forget)); renderAll(); }
+});
+$("#find-form").addEventListener("submit", e=>{
+  e.preventDefault();
+  const no = $("#find-no").value.trim().toUpperCase(), code = $("#find-code").value.trim().toUpperCase(), msg = $("#find-msg");
+  const a = Store.data.applications.find(x=>x.number===no && x.code===code);
+  if (!a){ msg.textContent = t("p.findNone"); msg.style.color = "var(--err)"; return; }
+  if (!myApps().some(m=>m.id===a.id)) saveMy([{id:a.id, code:a.code, number:a.number}, ...myApps()]);
+  msg.textContent = t("p.findOk"); msg.style.color = "var(--ok)"; e.target.reset(); renderAll();
+});
+
+/* ---- sign-up modal ---- */
+let lastFocus = null;
+function openModal(html){ lastFocus = document.activeElement; $("#modal-box").innerHTML = html; $("#modal").hidden = false; document.body.style.overflow="hidden"; setTimeout(()=>$("#modal-box input, #modal-box button")?.focus(), 30); }
+function closeModal(){ $("#modal").hidden = true; document.body.style.overflow=""; lastFocus?.focus?.(); }
+$("#modal").addEventListener("click", e=>{ if (e.target.id==="modal" || e.target.closest("[data-modal-close]")) closeModal(); });
+document.addEventListener("keydown", e=>{ if (e.key==="Escape" && !$("#modal").hidden) closeModal(); });
+function openSignup(sid){
+  const s = Store.get("sessions", sid); if (!s) return;
+  openModal(`<div class="modal-head"><div style="display:grid;gap:6px"><p class="eyebrow">${esc(t("m.signupH"))}</p><h2 id="modal-h" style="font-size:28px">${esc(s.title)}</h2><div class="meta num"><span>${icon("cal")}${esc(fmtDate(s.date))}</span><span>${icon("clock")}${esc(s.time)}</span><span>${icon("rink")}${esc(s.hall)}</span></div></div><button class="icon-btn" type="button" data-modal-close aria-label="${esc(t("cancel"))}">${icon("x")}</button></div>
+  <form id="signup-form" class="form" novalidate data-sid="${esc(sid)}">
+    <div class="field"><label for="su-name">${esc(t("f.name"))} <span class="req">*</span></label><input id="su-name" autocomplete="name" maxlength="80" required><p class="err" aria-live="polite"></p></div>
+    <div class="field"><label for="su-email">${esc(t("f.email"))} <span class="muted">(${esc(t("f.optional"))})</span></label><input id="su-email" type="email" inputmode="email" autocomplete="email" maxlength="120"><p class="err" aria-live="polite"></p></div>
+    <div class="field"><label for="su-phone">${esc(t("f.phone"))} <span class="muted">(${esc(t("f.optional"))})</span></label><input id="su-phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="+371"><p class="err" aria-live="polite"></p></div>
+    <div class="hp" aria-hidden="true"><label for="su-web">Web</label><input id="su-web" tabindex="-1" autocomplete="off"></div>
+    <p class="form-msg error" hidden></p>
+    <div class="form-actions"><button class="btn btn-primary" type="submit">${esc(t("m.send"))}</button><button class="btn btn-ghost" type="button" data-modal-close>${esc(t("cancel"))}</button></div>
+  </form>`);
+}
+const randCode = () => { const A="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; const r=crypto.getRandomValues(new Uint8Array(6)); return [...r].map(x=>A[x%A.length]).join(""); };
+let submitting = false;
+document.addEventListener("submit", async e=>{
+  if (e.target.id !== "signup-form") return;
+  e.preventDefault(); const form = e.target, btn = form.querySelector('[type="submit"]');
+  if (submitting) return; formMsg(form, "");
+  if (form.querySelector("#su-web").value) { closeModal(); return; } // honeypot
+  if (!validateForm(form)) return;
+  const s = Store.get("sessions", form.dataset.sid);
+  const name = $("#su-name").value.trim(), email = $("#su-email").value.trim().toLowerCase(), phone = normPhone($("#su-phone").value);
+  const others = Store.data.applications.filter(a=>a.sessionId===s.id && a.status!=="rejected");
+  if (email && others.some(a=>a.email===email)) return fieldErr($("#su-email"), t("v.dupEmail"));
+  if (phone && others.some(a=>a.phone===phone)) return fieldErr($("#su-phone"), t("v.dupPhone"));
+  if (!s || sessionStatus(s)!=="active") return formMsg(form, t("v.full"));
+  submitting = true; setBusy(btn, true);
+  try{
+    const n = await Store.nextNumber();
+    const id = uid(), number = "P-"+String(n).padStart(4,"0"), code = randCode(), at = nowIso();
+    const rec = { sessionId:s.id, organizerId:s.organizerId, number, code, name, email, phone, status:"signed", createdAt:at, updatedAt:at, history:[{status:"signed", at, by:"player"}] };
+    await Store.set("applications", id, rec);
+    saveMy([{id, code, number}, ...myApps()]);
+    $("#modal-box").innerHTML = `<div class="modal-head"><div style="display:grid;gap:6px"><p class="eyebrow">${esc(s.title)}</p><h2 id="modal-h" style="font-size:28px">${esc(t("m.okH"))}</h2></div><button class="icon-btn" type="button" data-modal-close aria-label="${esc(t("m.done"))}">${icon("x")}</button></div>
+      <div class="receipt num"><div class="kv"><span class="muted">${esc(t("m.no"))}</span><span class="big">${esc(number)}</span></div><div class="kv"><span class="muted">${esc(t("m.code"))}</span><b style="font-family:var(--f-head);font-size:22px;letter-spacing:.12em;user-select:all">${esc(code)}</b></div><div class="kv"><span class="muted">${esc(t("m.status"))}</span>${chip("signed")}</div><div class="kv"><span class="muted">${esc(fmtDate(s.date))}, ${esc(s.time)}</span><span class="muted">${esc(fmtDT(at))}</span></div></div>
+      <p class="muted">${esc(t("m.okP"))}</p>${s.place?`<p class="addr">${icon("pin")}<span>${esc(s.place)}</span></p>`:""}
+      <div class="form-actions"><button class="btn btn-primary" type="button" data-modal-close>${esc(t("m.done"))}</button></div>`;
+    renderAll();
+  }catch(err){ console.warn(err); setBusy(btn,false); formMsg(form, t("t.err")); }
+  finally{ submitting = false; }
+});
+
+/* ================= ORGANISER PANEL ================= */
+let orgTab = "upcoming", openSession = null, editingSession = null, pendingDelete = null;
+$("#org-login").addEventListener("submit", async e=>{
+  e.preventDefault(); const form = e.target, btn = form.querySelector('[type="submit"]'); formMsg(form,"");
+  if (!validateForm(form)) return;
+  setBusy(btn,true);
+  const email = $("#ol-email").value.trim().toLowerCase();
+  const o = Store.data.organizers.find(x=>x.email===email);
+  const ok = o && await checkPassword($("#ol-pass").value, o);
+  setBusy(btn,false);
+  if (!ok) return formMsg(form, t("o.badLogin"));
+  if (o.active === false) return formMsg(form, t("o.inactive"));
+  form.reset(); setAuth({role:"org", id:o.id});
+});
+$("#tpl-open").addEventListener("click", ()=>{ $("#tpl-panel").hidden = false; $("#t-title").focus(); });
+$("#ses-open").addEventListener("click", ()=>openSessionForm(null));
+document.addEventListener("click", e=>{ const c = e.target.closest("[data-close]"); if (c){ const p=$(c.dataset.close); p.hidden = true; p.querySelector("form")?.reset(); $$(".field.invalid",p).forEach(f=>f.classList.remove("invalid")); $$(".err",p).forEach(x=>x.textContent=""); if (c.dataset.close==="#ses-panel") editingSession=null; } });
+$("#tpl-form").addEventListener("submit", async e=>{
+  e.preventDefault(); const form=e.target, btn=form.querySelector('[type="submit"]'); formMsg(form,"");
+  if (!validateForm(form) || btn.disabled) return; const o = currentOrg(); if (!o) return;
+  setBusy(btn,true);
+  try{ await Store.set("templates", uid(), { organizerId:o.id, title:$("#t-title").value.trim(), place:$("#t-place").value.trim(), hall:$("#t-hall").value.trim(), createdAt:nowIso() });
+    form.reset(); $("#tpl-panel").hidden = true; toast(t("t.saved")); }
+  catch{ formMsg(form, t("t.err")); }
+  finally{ setBusy(btn,false); }
+});
+function fillTplSelect(){
+  const o = currentOrg(); const sel = $("#s-tpl"); if (!o) return;
+  const cur = sel.value;
+  sel.innerHTML = `<option value="">${esc(t("f.noProfile"))}</option>` + Store.data.templates.filter(x=>x.organizerId===o.id).map(x=>`<option value="${esc(x.id)}">${esc(x.title)} · ${esc(x.hall)}</option>`).join("");
+  sel.value = cur;
+}
+$("#s-tpl").addEventListener("change", e=>{ const x = Store.get("templates", e.target.value); if (!x) return; $("#s-title").value=x.title; $("#s-place").value=x.place; $("#s-hall").value=x.hall; ["#s-title","#s-place","#s-hall"].forEach(s=>fieldErr($(s),"")); });
+$("#s-desc").addEventListener("input", e=>{ $("#s-desc-count").textContent = `${e.target.value.length} / 280` });
+function openSessionForm(sid){
+  editingSession = sid; const p = $("#ses-panel"); p.hidden = false; fillTplSelect();
+  const s = sid ? Store.get("sessions", sid) : null;
+  $("#ses-form-h").textContent = t(s ? "o.sesEditH" : "o.sesH");
+  $("#s-title").value = s?.title||""; $("#s-place").value = s?.place||""; $("#s-hall").value = s?.hall||"";
+  $("#s-date").value = s?.date||""; $("#s-time").value = s?.time||""; $("#s-spots").value = s?.spots||""; $("#s-price").value = s?.price ?? ""; $("#s-desc").value = s?.description||"";
+  $("#s-desc-count").textContent = `${$("#s-desc").value.length} / 280`;
+  const tpls = Store.data.templates.filter(x=>x.organizerId===currentOrg()?.id);
+  if (!s && tpls.length===1){ $("#s-tpl").value = tpls[0].id; $("#s-tpl").dispatchEvent(new Event("change")); }
+  p.scrollIntoView({behavior:"smooth", block:"start"}); setTimeout(()=>$("#s-tpl").focus(), 300);
+}
+$("#ses-form").addEventListener("submit", async e=>{
+  e.preventDefault(); const form=e.target; const btn = e.submitter || form.querySelector('[data-status="active"]'); formMsg(form,"");
+  if (!validateForm(form) || btn.disabled) return; const o = currentOrg(); if (!o) return;
+  const status = btn.dataset.status, at = nowIso();
+  const data = { organizerId:o.id, team:o.team, title:$("#s-title").value.trim(), place:$("#s-place").value.trim(), hall:$("#s-hall").value.trim(), date:$("#s-date").value, time:$("#s-time").value, spots:parseInt($("#s-spots").value,10), price:$("#s-price").value===""?0:Number($("#s-price").value), description:$("#s-desc").value.trim(), status, updatedAt:at };
+  setBusy(btn,true);
+  try{
+    if (editingSession) await Store.update("sessions", editingSession, data);
+    else { const id = uid(); await Store.set("sessions", id, {...data, createdAt:at}); openSession = id; }
+    form.reset(); $("#ses-panel").hidden = true; editingSession = null;
+    toast(t(status==="active" ? "o.activated" : "o.drafted"));
+  }catch{ formMsg(form, t("t.err")); }
+  finally{ setBusy(btn,false); }
+});
+$$("[data-otab]").forEach(b=>b.addEventListener("click", ()=>{ orgTab = b.dataset.otab; $$("[data-otab]").forEach(x=>x.setAttribute("aria-selected", String(x===b))); renderOrg(); }));
+
+function renderOrg(){
+  const o = currentOrg();
+  $("#org-login-wrap").hidden = !!o; $("#org-app").hidden = !o;
+  if (!o) return; // record may still be arriving from the store; the login form shows meanwhile
+  $("#org-avatar").textContent = initials(o.name); $("#org-name").textContent = o.name; $("#org-team").textContent = o.team;
+  // templates
+  const tpls = Store.data.templates.filter(x=>x.organizerId===o.id);
+  $("#tpl-list").innerHTML = tpls.length ? tpls.map(x=>`<span class="tpl">${icon("rink")}<b>${esc(x.title)} · ${esc(x.hall)}</b><button class="icon-btn" type="button" data-tpl-del="${esc(x.id)}" aria-label="${esc(t("o.tplDel"))}: ${esc(x.title)}">${icon("trash")}</button></span>`).join("") : `<p class="muted">${esc(t("o.tplNone"))}</p>`;
+  if (!$("#ses-panel").hidden) fillTplSelect();
+  // stats
+  const mine = Store.data.sessions.filter(s=>s.organizerId===o.id);
+  const myApps_ = Store.data.applications.filter(a=>a.organizerId===o.id && mine.some(s=>s.id===a.sessionId && !isPast(s)));
+  $("#org-stats").innerHTML = [[mine.filter(s=>s.status==="active"&&!isPast(s)).length,"o.statActive"],[myApps_.filter(a=>a.status==="signed").length,"o.statWaiting"],[myApps_.filter(a=>a.status==="approved").length,"o.statPlayers"]].map(([n,k])=>`<div class="stat num"><b>${n}</b><span>${esc(t(k))}</span></div>`).join("");
+  // list
+  const box = $("#org-list");
+  if (!Store.ready){ box.innerHTML = skeleton(2); return; }
+  const list = mine.filter(s=> orgTab==="past" ? isPast(s) : !isPast(s)).sort(sortDesc);
+  if (!list.length){ box.innerHTML = orgTab==="past" ? emptyState(t("o.nonePastH"), t("o.nonePastP")) : emptyState(t("o.noneUpH"), t("o.noneUpP"), `<button class="btn btn-primary btn-sm" type="button" id="empty-new">${icon("plus")}<span>${esc(t("o.newSession"))}</span></button>`); $("#empty-new")?.addEventListener("click", ()=>openSessionForm(null)); }
+  else box.innerHTML = list.map(s=>{
+    const st = sessionStatus(s), a = taken(s.id), d=new Date(s.date+"T12:00:00");
+    return `<article class="card s-card o-card" tabindex="0" role="button" aria-pressed="${openSession===s.id}" data-open="${esc(s.id)}">
+      <div class="date-tile num" aria-hidden="true"><small>${esc(fmtDate(s.date,{month:"short"}))}</small><b>${d.getDate()}</b><i>${esc(s.time)}</i></div>
+      <div class="s-body"><div class="row" style="justify-content:space-between"><h3>${esc(s.title)}</h3>${chip(st)}</div>
+      <div class="meta num"><span>${icon("cal")}${esc(fmtDate(s.date))}, ${esc(s.time)}</span></div>
+      <div class="meta"><span>${icon("pin")}${esc(s.place)}</span><span>${icon("rink")}${esc(s.hall)}</span></div>
+      <div class="meta num"><span>${icon("team")}${esc(t("o.participants", a, s.spots))}</span></div></div>
+    </article>`;
+  }).join("");
+  renderDetail();
+}
+document.addEventListener("click", async e=>{
+  const card = e.target.closest("[data-open]"); if (card){ openSession = card.dataset.open; pendingDelete=null; renderOrg(); if (openSession) $("#org-detail").scrollIntoView({behavior:"smooth", block:"start"}); return; }
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.tplDel){ try{ await Store.remove("templates", b.dataset.tplDel); toast(t("o.tplDeleted")); }catch{ toast(t("t.err"),"err"); } }
+  if (b.dataset.edit) openSessionForm(b.dataset.edit);
+  if (b.dataset.setStatus){ const [id, st] = b.dataset.setStatus.split("|"); setBusy(b,true); try{ await Store.update("sessions", id, {status:st, updatedAt:nowIso()}); toast(t(st==="active"?"o.activated":"o.drafted")); }catch{ setBusy(b,false); toast(t("t.err"),"err"); } }
+  if (b.dataset.closeDetail!==undefined && b.hasAttribute("data-close-detail")){ openSession=null; renderOrg(); }
+  if (b.dataset.move){ const [id, st] = b.dataset.move.split("|"); await moveApp(id, st, b); }
+  if (b.dataset.del){ pendingDelete = b.dataset.del; renderDetail(); }
+  if (b.hasAttribute("data-del-no")){ pendingDelete = null; renderDetail(); }
+  if (b.dataset.delYes){ setBusy(b,true); try{ await Store.remove("applications", b.dataset.delYes); pendingDelete=null; toast(t("o.deleted")); }catch{ setBusy(b,false); toast(t("t.err"),"err"); } }
+});
+document.addEventListener("keydown", e=>{ const c = e.target.closest?.("[data-open]"); if (c && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); c.click(); } });
+async function moveApp(id, st, btn){
+  const a = Store.get("applications", id); if (!a || a.status===st) return;
+  const s = Store.get("sessions", a.sessionId);
+  if ((st==="signed"||st==="approved") && a.status==="rejected" && s && freeSpots(s)===0){ toast(t("v.full"),"err"); return; }
+  setBusy(btn,true);
+  try{ const at = nowIso(); await Store.update("applications", id, { status:st, updatedAt:at, history:[...(a.history||[]), {status:st, at, by:"organizer"}] });
+    toast(t(st==="approved"?"o.approved":st==="rejected"?"o.rejected":"o.movedSigned")); }
+  catch{ setBusy(btn,false); toast(t("t.err"),"err"); }
+}
+function renderDetail(){
+  const box = $("#org-detail"), o = currentOrg();
+  const s = openSession && Store.get("sessions", openSession);
+  if (!o || !s || s.organizerId!==o.id){ box.hidden = true; box.innerHTML=""; return; }
+  box.hidden = false;
+  const apps = Store.data.applications.filter(a=>a.sessionId===s.id);
+  const st = sessionStatus(s);
+  const col = (key) => {
+    const items = apps.filter(a=>a.status===key).sort((a,b)=>a.createdAt.localeCompare(b.createdAt));
+    return `<div class="col" data-col="${key}" aria-label="${esc(t("st."+key))}"><div class="col-head">${chip(key)}<b class="num">${items.length}</b></div>
+      ${items.length ? items.map(a=>`<div class="k-card" draggable="true" data-app="${esc(a.id)}">
+        <div class="row" style="justify-content:space-between"><div class="row"><span class="avatar" style="width:30px;height:30px;font-size:12px">${esc(initials(a.name))}</span><b>${esc(a.name)}</b></div><span class="muted num" style="font-size:13px">${esc(a.number)}</span></div>
+        <div class="contacts">${a.email||a.phone ? [a.email,a.phone].filter(Boolean).map(esc).join(" · ") : esc(t("o.noContacts"))}</div>
+        <details><summary class="num">${esc(fmtDT(a.createdAt))}</summary><ul class="history num">${(a.history||[]).map(h=>`<li>${esc(fmtDT(h.at))} · ${esc(t("st."+h.status))}</li>`).join("")}</ul></details>
+        ${pendingDelete===a.id ? `<div class="confirm"><span>${esc(t("o.cancelConfirm"))}</span><button class="btn btn-err btn-sm" type="button" data-del-yes="${esc(a.id)}">${esc(t("o.yesDelete"))}</button><button class="btn btn-ghost btn-sm" type="button" data-del-no>${esc(t("my.no"))}</button></div>` :
+        `<div class="k-actions">${key!=="approved"?`<button class="btn btn-ok btn-sm" type="button" data-move="${esc(a.id)}|approved">${icon("check")}<span>${esc(t("o.approve"))}</span></button>`:""}${key!=="rejected"?`<button class="btn btn-err btn-sm" type="button" data-move="${esc(a.id)}|rejected">${icon("x")}<span>${esc(t("o.reject"))}</span></button>`:""}<button class="btn btn-ghost btn-sm" type="button" data-del="${esc(a.id)}">${icon("trash")}<span>${esc(t("o.cancelApp"))}</span></button></div>`}
+      </div>`).join("") : `<p class="muted" style="font-size:14px;text-align:center;padding:16px 0">${esc(t("o.colEmpty"))}</p>`}
+    </div>`;
+  };
+  box.innerHTML = `<div class="panel" style="display:grid;gap:var(--s3)">
+    <div class="section-head" style="margin:0"><div><div class="row">${chip(st)}<span class="muted num">${esc(t("o.participants", taken(s.id), s.spots))}</span></div><h2 style="font-size:clamp(24px,3vw,34px)">${esc(s.title)}</h2>
+      <div class="meta num"><span>${icon("cal")}${esc(fmtDate(s.date))}, ${esc(s.time)}</span><span>${icon("pin")}${esc(s.place)}</span><span>${icon("rink")}${esc(s.hall)}</span><span>${icon("euro")}${esc(fmtPrice(s.price))}</span></div>
+      ${s.description?`<p class="desc">${esc(s.description)}</p>`:""}</div>
+      <div class="form-actions">${!isPast(s)?`<button class="btn btn-secondary btn-sm" type="button" data-edit="${esc(s.id)}">${icon("edit")}<span>${esc(t("o.edit"))}</span></button>${s.status==="active"?`<button class="btn btn-ghost btn-sm" type="button" data-set-status="${esc(s.id)}|draft">${esc(t("o.toDraft"))}</button>`:`<button class="btn btn-primary btn-sm" type="button" data-set-status="${esc(s.id)}|active">${esc(t("o.toActive"))}</button>`}`:""}<button class="btn btn-ghost btn-sm" type="button" data-close-detail>${icon("x")}<span>${esc(t("o.close"))}</span></button></div>
+    </div>
+    <p class="muted" style="font-size:14px">${esc(t("o.dragHint"))}</p>
+    <div class="kanban">${col("signed")}${col("approved")}${col("rejected")}</div>
+  </div>`;
+}
+// Kanban drag & drop
+let dragId = null;
+document.addEventListener("dragstart", e=>{ const c = e.target.closest?.(".k-card"); if (!c) return; dragId = c.dataset.app; c.classList.add("dragging"); e.dataTransfer.effectAllowed="move"; try{ e.dataTransfer.setData("text/plain", dragId) }catch{} });
+document.addEventListener("dragend", e=>{ e.target.closest?.(".k-card")?.classList.remove("dragging"); $$(".col.drop").forEach(c=>c.classList.remove("drop")); dragId=null; });
+document.addEventListener("dragover", e=>{ const col = e.target.closest?.(".col"); if (!col || !dragId) return; e.preventDefault(); $$(".col.drop").forEach(c=>c!==col&&c.classList.remove("drop")); col.classList.add("drop"); });
+document.addEventListener("drop", async e=>{ const col = e.target.closest?.(".col"); if (!col || !dragId) return; e.preventDefault(); col.classList.remove("drop"); const id = dragId; dragId=null; await moveApp(id, col.dataset.col, null); });
+
+/* ================= ADMIN PANEL ================= */
+function renderAdmin(){
+  const a = currentAdmin(); const gate = $("#adm-gate-box");
+  $("#adm-gate").hidden = !!a; $("#adm-app").hidden = !a;
+  if (!a){
+    if (!Store.ready){ gate.innerHTML = Store.failed ? errorState() : skeleton(1); gate.dataset.mode=""; return; }
+    const boot = Store.data.admins.length === 0, mode = boot ? "boot" : "login";
+    if (gate.dataset.mode === mode+lang) return;
+    gate.dataset.mode = mode+lang;
+    gate.innerHTML = `<form id="adm-form" class="form" novalidate data-mode="${mode}">
+      <div style="display:grid;gap:8px"><p class="eyebrow">${esc(t("a.eyebrow"))}</p><h1 style="font-size:clamp(30px,4vw,40px)">${esc(t(boot?"a.bootH":"a.loginH"))}</h1><p class="muted">${esc(t(boot?"a.bootP":"a.loginP"))}</p></div>
+      ${boot?`<div class="field"><label for="ab-name">${esc(t("f.name"))} <span class="req">*</span></label><input id="ab-name" autocomplete="name" maxlength="80" required><p class="err" aria-live="polite"></p></div>`:""}
+      <div class="field"><label for="ab-email">${esc(t("f.email"))} <span class="req">*</span></label><input id="ab-email" type="email" inputmode="email" autocomplete="username" required><p class="err" aria-live="polite"></p></div>
+      <div class="field"><label for="${boot?"oc-pass-b":"ab-pass"}">${esc(t("f.password"))} <span class="req">*</span></label><input id="${boot?"oc-pass-b":"ab-pass"}" type="password" autocomplete="${boot?"new-password":"current-password"}" required ${boot?'minlength="8"':""}>${boot?`<p class="hint">${esc(t("f.passHint").split(".")[0])}.</p>`:""}<p class="err" aria-live="polite"></p></div>
+      <p class="form-msg error" hidden></p>
+      <div class="form-actions"><button class="btn btn-primary" type="submit">${esc(t(boot?"a.bootBtn":"a.loginBtn"))}</button></div></form>`;
+    return;
+  }
+  $("#adm-gate-box").dataset.mode = "";
+  $("#adm-avatar").textContent = initials(a.name); $("#adm-name").textContent = a.name;
+  const orgs = Store.data.organizers;
+  $("#adm-stats").innerHTML = [[orgs.length,"a.statOrgs"],[Store.data.sessions.filter(s=>s.status==="active"&&!isPast(s)).length,"a.statSessions"],[Store.data.applications.length,"a.statApps"]].map(([n,k])=>`<div class="stat num"><b>${n}</b><span>${esc(t(k))}</span></div>`).join("");
+  const q = $("#adm-q").value.trim().toLowerCase();
+  const list = orgs.filter(o=>!q || [o.name,o.email,o.team].join(" ").toLowerCase().includes(q)).sort((x,y)=>(y.createdAt||"").localeCompare(x.createdAt||""));
+  const box = $("#adm-list");
+  if (!orgs.length){ box.innerHTML = `<div class="grid">${emptyState(t("a.noneH"), t("a.noneP"))}</div>`; return; }
+  if (!list.length){ box.innerHTML = `<div class="grid">${emptyState(t("empty.filterH"), t("empty.filterP"))}</div>`; return; }
+  box.innerHTML = `<div class="table-wrap"><table><thead><tr><th>${esc(t("a.thName"))}</th><th>${esc(t("a.thTeam"))}</th><th>${esc(t("a.thEmail"))}</th><th>${esc(t("a.thSessions"))}</th><th>${esc(t("a.thCreated"))}</th><th>${esc(t("a.thStatus"))}</th><th>${esc(t("a.thActions"))}</th></tr></thead><tbody>
+    ${list.map(o=>{ const on = o.active!==false; return `<tr>
+      <td data-label="${esc(t("a.thName"))}"><span class="row" style="flex-wrap:nowrap"><span class="avatar" style="width:30px;height:30px;font-size:12px">${esc(initials(o.name))}</span><b>${esc(o.name)}</b></span></td>
+      <td data-label="${esc(t("a.thTeam"))}">${esc(o.team)}</td>
+      <td data-label="${esc(t("a.thEmail"))}" style="overflow-wrap:anywhere">${esc(o.email)}</td>
+      <td data-label="${esc(t("a.thSessions"))}" class="num">${Store.data.sessions.filter(s=>s.organizerId===o.id).length}</td>
+      <td data-label="${esc(t("a.thCreated"))}" class="num">${esc(fmtDT(o.createdAt))}</td>
+      <td data-label="${esc(t("a.thStatus"))}"><span class="chip chip-${on?"active":"rejected"}">${esc(t(on?"a.on":"a.off"))}</span></td>
+      <td data-label="${esc(t("a.thActions"))}"><button class="btn btn-ghost btn-sm" type="button" data-org-toggle="${esc(o.id)}">${esc(t(on?"a.suspend":"a.resume"))}</button></td></tr>`; }).join("")}
+  </tbody></table></div>`;
+}
+$("#adm-q").addEventListener("input", renderAdmin);
+$("#org-create-open").addEventListener("click", ()=>{ $("#org-create-panel").hidden=false; $("#oc-name").focus(); });
+document.addEventListener("click", async e=>{ const b = e.target.closest("[data-org-toggle]"); if (!b) return; const o = Store.get("organizers", b.dataset.orgToggle); setBusy(b,true); try{ await Store.update("organizers", o.id, {active: o.active===false, updatedAt:nowIso()}); toast(t("t.saved")); }catch{ setBusy(b,false); toast(t("t.err"),"err"); } });
+document.addEventListener("submit", async e=>{
+  if (e.target.id !== "adm-form") return;
+  e.preventDefault(); const form=e.target, btn=form.querySelector('[type="submit"]'); formMsg(form,"");
+  if (form.dataset.mode==="boot"){ const p=$("#oc-pass-b"); if (p.value && p.value.length<8){ fieldErr(p, t("v.min8")); return; } }
+  if (!validateForm(form) || btn.disabled) return;
+  setBusy(btn,true);
+  try{
+    const email = $("#ab-email").value.trim().toLowerCase();
+    if (form.dataset.mode==="boot"){
+      if (Store.data.admins.length){ setBusy(btn,false); renderAdmin(); return; }
+      const h = await hashPassword($("#oc-pass-b").value); const id = uid();
+      await Store.set("admins", id, { name:$("#ab-name").value.trim(), email, ...h, createdAt:nowIso() });
+      setAuth({role:"admin", id});
+    } else {
+      const a = Store.data.admins.find(x=>x.email===email);
+      const ok = a && await checkPassword($("#ab-pass").value, a);
+      setBusy(btn,false);
+      if (!ok) return formMsg(form, t("o.badLogin"));
+      setAuth({role:"admin", id:a.id});
+    }
+  }catch(err){ setBusy(btn,false); formMsg(form, err?.message==="crypto" ? t("crypto") : t("t.err")); }
+});
+$("#org-create").addEventListener("submit", async e=>{
+  e.preventDefault(); const form=e.target, btn=form.querySelector('[type="submit"]'); formMsg(form,"");
+  if (!validateForm(form) || btn.disabled || !currentAdmin()) return;
+  const email = $("#oc-email").value.trim().toLowerCase();
+  if (Store.data.organizers.some(o=>o.email===email)) return fieldErr($("#oc-email"), t("v.orgDup"));
+  setBusy(btn,true);
+  try{
+    const h = await hashPassword($("#oc-pass").value);
+    await Store.set("organizers", uid(), { name:$("#oc-name").value.trim(), team:$("#oc-team").value.trim(), email, ...h, active:true, createdAt:nowIso(), createdBy:currentAdmin().id });
+    form.reset(); $("#org-create-panel").hidden = true; toast(t("a.created"));
+  }catch(err){ formMsg(form, err?.message==="crypto" ? t("crypto") : t("t.err")); }
+  finally{ setBusy(btn,false); }
+});
+
+/* ================= motion: header, reveal ================= */
+const head = $("#head");
+addEventListener("scroll", ()=>head.classList.toggle("compact", scrollY > 24), {passive:true});
+let io = null;
+function observeReveal(){
+  const els = $$(".reveal:not(.in)");
+  if (!("IntersectionObserver" in window) || matchMedia("(prefers-reduced-motion: reduce)").matches){ els.forEach(e=>e.classList.add("in")); return; }
+  io ||= new IntersectionObserver(es=>es.forEach((en,i)=>{ if (en.isIntersecting){ en.target.style.transitionDelay = (i*80)+"ms"; en.target.classList.add("in"); io.unobserve(en.target); } }), {threshold:.15});
+  els.forEach(el=>{ const r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) el.classList.add("in"); else io.observe(el); });
+}
+
+/* ================= boot ================= */
+$("#year").textContent = new Date().getFullYear();
+$("#f-date").min = todayStr(); $("#s-date").min = todayStr();
+$$("[data-lang]").forEach(b=>b.addEventListener("click", ()=>setLang(b.dataset.lang)));
+setLang(lang);
+showRoute();
+Store.init();
+setInterval(()=>{ if (Store.ready) renderAll(); }, 60000); // past/upcoming flips at midnight
+</script>
