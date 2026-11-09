@@ -355,12 +355,16 @@ td{padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
             <line x1="584" y1="70" x2="584" y2="330"/><line x1="578" y1="70" x2="590" y2="70"/><line x1="578" y1="330" x2="590" y2="330"/>
           </g>
           <!-- stick -->
-          <g transform="translate(334 262) rotate(-45)">
-            <rect x="0" y="-6" width="210" height="12" rx="6" fill="#151833" stroke="url(#hg)" stroke-width="2"/>
-            <rect x="150" y="-6" width="40" height="12" fill="#7c5cff" fill-opacity=".35"/>
+          <!-- stick: one continuous outline – shaft, rounded heel, wide slightly curved blade (~135°) -->
+          <clipPath id="blade-clip"><path d="M331.6 256 L322 256 Q306 257 280 254 Q268 254 268 263 Q268 272 280 274 Q306 278 340 274 Q356 268 352.3 252.1 Z"/></clipPath>
+          <path d="M471.2 116.4 L479.6 124.8 L352.3 252.1 Q356 268 340 274 Q306 278 280 274 Q268 272 268 263 Q268 254 280 254 Q306 257 322 256 L331.6 256 Z" fill="#151833" stroke="url(#hg)" stroke-width="2" stroke-linejoin="round"/>
+          <g clip-path="url(#blade-clip)" stroke="#eef0fa" stroke-opacity=".35" stroke-width="2">
+            <path d="M284 250v30M292 250v30M300 250v30M308 250v30M316 250v30M324 250v30"/>
           </g>
-          <!-- blade: ~135° to the shaft, slightly curved -->
-          <path d="M340 254 Q313 258 287 255 Q276 255 276 263 Q277 271 288 271 Q314 274 340 272 Q347 268 346 262 Q345 255 340 254 Z" fill="#151833" stroke="url(#hg)" stroke-width="2" stroke-linejoin="round"/>
+          <g transform="translate(334 262) rotate(-45)">
+            <rect x="150" y="-5" width="38" height="10" fill="#7c5cff" fill-opacity=".45"/>
+            <rect x="196" y="-7.5" width="15" height="15" rx="4" fill="#151833" stroke="url(#hg)" stroke-width="2"/>
+          </g>
           <!-- puck -->
           <ellipse cx="248" cy="276" rx="34" ry="10" fill="#2dd9e8" fill-opacity=".35" filter="url(#glow)"/>
           <g>
